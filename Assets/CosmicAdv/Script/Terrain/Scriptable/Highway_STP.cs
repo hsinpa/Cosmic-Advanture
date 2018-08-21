@@ -8,5 +8,6 @@ namespace CA_Terrain
 	public class Highway_STP : Terrain_STP {
 		public List<GameObject> vehicles;
 		
+		public bool staticObstacle = false;
 	}
 }

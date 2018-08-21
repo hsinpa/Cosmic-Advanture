@@ -11,11 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f79c7ea44d0e24967bb69e0a111361df, type: 3}
   m_Name: '[STP]Plain'
   m_EditorClassIdentifier: 
+  _id: 10001
   TerrainPrefab:
   - {fileID: 1409759699090042, guid: b9e4305c7eced4585857db24d9752ee4, type: 2}
   DisableTerrainPrefab: {fileID: 1184544802735402, guid: 8358f2536b2b844279ed9c91bc7c7492,
     type: 2}
   obstables:
-  - {fileID: 189882, guid: ee6af68a3d2c1864ebc6cfc3be82d851, type: 2}
-  - {fileID: 131094, guid: d93817f79a1e01242b20f7081cbfa384, type: 2}
-  - {fileID: 129346, guid: c50789636e1fc5c4b8a37e2700e4a3c1, type: 2}
+  - {fileID: 11400000, guid: 949ff1a554db3471891ebd8171694649, type: 2}
+  - {fileID: 11400000, guid: d02b9fdc114c14f729f01dff621b0b5f, type: 2}
+  - {fileID: 11400000, guid: bab178cc6bb964c06a356aa2e6edd0ab, type: 2}

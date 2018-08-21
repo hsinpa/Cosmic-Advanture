@@ -6,11 +6,28 @@ using Utility;
 namespace  CA_Terrain
 {
 	public abstract class TerrainBuilder : MonoBehaviour {
-		public Terrain_STP terrain_stp;
-		public int total_size;
-		public int activate_size;
+		#region Inspector Parameters
+			public Terrain_STP terrain_stp;
+			public int total_size;
+			public int activate_size;
 
-		public GameObject[] stored_prefabs;
+			[Range(0, 0.8f)]
+			public float obstacleDistribution;
+
+			public GameObject[] stored_prefabs;
+			public GameObject Obstacle;
+			public GameObject Terrains;
+			public GameObject AnimatedObject;
+		#endregion
+
+		public void PreCheck() {
+			if (Obstacle == null)
+				Obstacle = transform.Find("Obstacle").gameObject;
+			if (Terrains == null)
+				Terrains = transform.Find("Terrains").gameObject;
+			if (AnimatedObject == null)
+				AnimatedObject = transform.Find("AnimatedObject").gameObject;
+		}
 
 		public void BuildTerrain() {
 			if (total_size < activate_size) {
@@ -23,11 +40,12 @@ namespace  CA_Terrain
 				return;
 			}
 
+			PreCheck();
 			Clear();
 
 			stored_prefabs = new GameObject[total_size];
-			int activateStartXPos = Mathf.RoundToInt(transform.position.x - (activate_size * 0.5f));
-			int totalStartXPos = Mathf.RoundToInt(transform.position.x - (total_size * 0.5f));
+			int activateStartXPos = -Mathf.RoundToInt((activate_size * 0.5f));
+			int totalStartXPos = -Mathf.RoundToInt((total_size * 0.5f));
 
 			for (int i = 0; i < total_size; i++) {
 				GameObject selectedPrefab = terrain_stp.DisableTerrainPrefab;
@@ -37,16 +55,22 @@ namespace  CA_Terrain
 				}
 				
 				GameObject instantiateObject = Instantiate(
-					selectedPrefab,new Vector3(activateStartXPos + i, 0, transform.position.z),
+					selectedPrefab,new Vector3( transform.position.x + activateStartXPos + i, 0, transform.position.z),
 					Quaternion.identity);
 
-				instantiateObject.transform.SetParent(this.transform);
+				instantiateObject.transform.SetParent(Terrains.transform);
 				stored_prefabs[i] = instantiateObject;
 			}
+
+			GenerateObstacle(true);
 		}
 
+		public abstract void GenerateObstacle(bool p_isPreBuild = false);
+
 		private void Clear() {
-			UtilityMethod.ClearChildObject(transform);
+			UtilityMethod.ClearChildObject(Obstacle.transform);
+			UtilityMethod.ClearChildObject(Terrains.transform);
+			UtilityMethod.ClearChildObject(AnimatedObject.transform);
 		}
 
 	}

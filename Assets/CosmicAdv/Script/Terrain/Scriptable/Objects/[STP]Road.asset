@@ -11,9 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54c03f8c363f24d16941ae8a4947c5b8, type: 3}
   m_Name: '[STP]Road'
   m_EditorClassIdentifier: 
+  _id: 10002
   TerrainPrefab:
   - {fileID: 1302715268724166, guid: d42b9a8cb8f1d47c5b71254b33241394, type: 2}
   - {fileID: 1136003367448260, guid: d87ea47801c86466185fe03a71df2935, type: 2}
   DisableTerrainPrefab: {fileID: 1136003367448260, guid: d87ea47801c86466185fe03a71df2935,
     type: 2}
   vehicles: []
+  staticObstacle: 0

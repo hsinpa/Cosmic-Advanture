@@ -6,6 +6,7 @@ using Utility;
 
 public class MapController : Observer {
 	MapGenerator _mapGeneration;
+    InputController _inputController;
 
 
     public override void OnNotify(string p_event, params object[] p_objects) {
@@ -15,6 +16,7 @@ public class MapController : Observer {
             case EventFlag.Game.SetUp : {
                 Debug.Log("Game Start");
 				_mapGeneration = MainApp.Instance.FindObject<MapGenerator>("model/map_generator");
+                _inputController = MainApp.Instance.GetObserver<InputController>();
 
 				Init();
             }
@@ -25,8 +27,16 @@ public class MapController : Observer {
 	private void Init() {
 		GameObject holderObject = MainApp.Instance.FindObject<Transform>("view/terrain_holder").gameObject;
 		_mapGeneration.SetUp(holderObject);
+        _inputController.SetUp(null);
 	}
 
+    private void Update() {
+
+        if (Input.GetKeyDown(KeyCode.Space) && _mapGeneration != null) {
+            _mapGeneration.AssignSRandomTerrain();
+        }
+        
+    }
 
 
 }

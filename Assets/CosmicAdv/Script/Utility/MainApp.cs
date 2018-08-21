@@ -25,7 +25,7 @@ public class MainApp : Singleton<MainApp> {
 		subject.notify(EventFlag.Game.SetUp);
 	}
 
-	public Observer GetObserver<T>() where T : Observer {
+	public T GetObserver<T>() where T : Observer {
 		
 		foreach (Observer observer in observers) {
 			if (observer.GetType() == typeof(T)) return (T)observer;
