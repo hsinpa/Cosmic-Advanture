@@ -7,7 +7,7 @@ using InputWrapper;
 
 public class InputController : Observer {
 	BaseUnit _playerUnit;
-	Swipe swipe;
+	InputManager _input;
 	// InputManager _inputManager;
 
     public override void OnNotify(string p_event, params object[] p_objects) {
@@ -19,33 +19,35 @@ public class InputController : Observer {
 
 	public void SetUp(BaseUnit p_baseUnit) {
 		_playerUnit = p_baseUnit;
-		swipe = gameObject.AddComponent<Swipe>();
-		// _inputManager = new InputManager();
 
+		if (_input == null)
+			_input = new InputManager(gameObject);
+		// _inputManager = new InputManager();
 	}
 
 	public void Update() {
-		if (swipe == null) return;
+		if (_input == null) return;
 
-		if (swipe.IsDownClick()) {
+		if (_input.IsDownClick()) {
 			Debug.Log("DownClick");
 		}
-		if (swipe.IsFrontClick()) {
+		if (_input.IsFrontClick()) {
 			Debug.Log("FrontClick");
 		}
 
-		if (swipe.IsLeftClick()) {
+		if (_input.IsLeftClick()) {
 			Debug.Log("LeftClick");
 		}
 
-		if (swipe.IsRightClick()) {
+		if (_input.IsRightClick()) {
 			Debug.Log("RightClick");
 		}
 
-		if (swipe.IsTap()) {
+		if (_input.IsTap()) {
 			Debug.Log("TapClick");
+
 		}
-		if (swipe.IsRelease()) {
+		if (_input.IsRelease()) {
 			Debug.Log("IsRelease");
 		}
 	}

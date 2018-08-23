@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 4755190417349246}
   - component: {fileID: 95171276308928390}
   m_Layer: 0
-  m_Name: Character_Male_Hoodie_01
+  m_Name: '[Prefab]Male_Hoodie'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

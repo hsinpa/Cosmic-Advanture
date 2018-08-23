@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace  InputWrapper {
-	public class Swipe : BaseInput {
+	public class SwipeInput : BaseInput {
 
 		private bool tap, swipeLeft, swipeRight, swipeUp, swipeDown;
 		private Vector2 startTouch, swipeDelta;
@@ -88,9 +88,9 @@ namespace  InputWrapper {
 					else 
 						swipeUp = true;
 				}
-
 				Reset(false);
 			}
+
 		}
 
 		private void Reset(bool isDeepClean = true) {
@@ -100,8 +100,6 @@ namespace  InputWrapper {
 				startTouch = swipeDelta = Vector2.zero;
 			}
 		}
-
-
 
 	}
 }

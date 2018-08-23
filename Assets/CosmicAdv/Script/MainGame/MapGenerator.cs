@@ -90,6 +90,8 @@ public class MapGenerator : MonoBehaviour {
 
 	private TerrainBuilder InstantiateTerrain(int object_id) {
 		GameObject createdObject = PoolManager.instance.ReuseObject(object_id );
+		Debug.Log(createdObject.name + ", "+ _line_index);
+		createdObject.SetActive(true);
 		createdObject.transform.SetParent( _terainholder.transform );
 		createdObject.transform.localPosition = new Vector3(0,0, _line_index);
 		createdObject.SetActive(true);
