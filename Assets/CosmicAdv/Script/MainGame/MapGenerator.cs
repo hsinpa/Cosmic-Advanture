@@ -6,7 +6,7 @@ using Utility;
 
 public class MapGenerator : MonoBehaviour {
 	public float slopeRate;
-	public int maxTerrainCapacity = 15;
+	public int maxTerrainCapacity = 20;
 
 	public List<GameObject> terrainPrefab = new List<GameObject>();
 	public List<Obstacle_STP> _obstacleHolder = new List<Obstacle_STP>();
@@ -90,7 +90,6 @@ public class MapGenerator : MonoBehaviour {
 
 	private TerrainBuilder InstantiateTerrain(int object_id) {
 		GameObject createdObject = PoolManager.instance.ReuseObject(object_id );
-		Debug.Log(createdObject.name + ", "+ _line_index);
 		createdObject.SetActive(true);
 		createdObject.transform.SetParent( _terainholder.transform );
 		createdObject.transform.localPosition = new Vector3(0,0, _line_index);
