@@ -3,6 +3,8 @@
 /[Oo]bj/
 /[Bb]uild/
 /[Bb]uilds/
+/.vs/
+
 /Assets/AssetStoreTools*
 node_modules/
 
@@ -17,6 +19,7 @@ ExportedObj/
 *.svd
 *.csproj
 *.sln
+
 
 
 # Unity3D generated meta files
