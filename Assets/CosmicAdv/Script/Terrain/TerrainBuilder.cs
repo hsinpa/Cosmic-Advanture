@@ -10,17 +10,37 @@ namespace  CA_Terrain
 			public Terrain_STP terrain_stp;
 			public int total_size;
 			public int activate_size;
+			public int index_offset {
+				get {
+					return total_size - activate_size;
+				}
+			}
 
 			[Range(0, 0.8f)]
 			public float obstacleDistribution;
 
 			public GameObject[] stored_prefabs;
-			public GameObject Obstacle;
-			public GameObject Terrains;
-			public GameObject AnimatedObject;
+			public CA_Grid[] grids;
+			protected GameObject Obstacle;
+			protected GameObject Terrains;
+			protected GameObject AnimatedObject;
+
 		#endregion
 
-		public void PreCheck() {
+		public void SetUp() {
+			grids =	ReCalculateGrid();
+		}
+
+		private CA_Grid[] ReCalculateGrid() {
+			CA_Grid[] grids = new CA_Grid[index_offset];
+			for (int i = 0 ; i < index_offset; i++) {
+				Vector2 gridPos = new Vector2(stored_prefabs[i].transform.position.x, stored_prefabs[i].transform.position.z);
+				grids[i] = new CA_Grid(gridPos, true);
+			}
+			return grids;
+		}
+
+		private void PreCheck() {
 			if (Obstacle == null)
 				Obstacle = transform.Find("Obstacle").gameObject;
 			if (Terrains == null)
@@ -72,6 +92,8 @@ namespace  CA_Terrain
 			UtilityMethod.ClearChildObject(Terrains.transform);
 			UtilityMethod.ClearChildObject(AnimatedObject.transform);
 		}
+
+
 
 	}
 }

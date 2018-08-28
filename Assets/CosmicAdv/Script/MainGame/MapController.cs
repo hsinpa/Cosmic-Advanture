@@ -29,9 +29,11 @@ public class MapController : Observer {
 
 	private void Init() {
 		GameObject holderObject = MainApp.Instance.FindObject<Transform>("view/terrain_holder").gameObject;
+        
+        baseUnit.transform.position = new Vector3(5, baseUnit.transform.position.y, 1);
+        baseUnit.SetUp();
 		_mapGeneration.SetUp(holderObject);
         _inputController.SetUp(baseUnit);
-        baseUnit.transform.position = new Vector3(5, baseUnit.transform.position.y, 3);
 
         _camera.SetUp(baseUnit);
 	}

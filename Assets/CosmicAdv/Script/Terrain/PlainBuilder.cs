@@ -30,8 +30,8 @@ namespace CA_Terrain
 		private void GenerateRandomObstacle() {
 			Plain_STP plain_stp = (Plain_STP) terrain_stp;
 
-			for (int i = 0; i < stored_prefabs.Length; i++) {
-					Transform g_prefab = stored_prefabs[i].transform;
+			for (int i = 0; i < activate_size; i++) {
+					Transform g_prefab = stored_prefabs[i + index_offset].transform;
 
 					if (g_prefab.name.IndexOf("On") > 0 && UtilityMethod.PercentageGame(obstacleDistribution) ) {
 						Obstacle_STP randomObstacle = plain_stp.obstables[Random.Range(0, plain_stp.obstables.Count)];
@@ -39,6 +39,8 @@ namespace CA_Terrain
 						generate_obstacle.transform.SetParent(Obstacle.transform);
 						generate_obstacle.transform.position = g_prefab.transform.position + (Vector3.up*0.5f);
 						generate_obstacle.SetActive(true);
+
+						grids[i].isWalkable = false;
 					}
 			}	
 		}

@@ -14,6 +14,7 @@ public class MapGenerator : MonoBehaviour {
 	private int _offsetX, _offsetY, _line_index = 0;
 	private Queue<TerrainBuilder> _terrainsHolder = new Queue<TerrainBuilder>();
 	private GameObject _terainholder;
+	private List<CA_Grid[]> gridMap = new List<CA_Grid[]>();
 
 	public void SetUp(GameObject p_terrain_holder ) {
 		_terainholder = p_terrain_holder;
@@ -26,15 +27,15 @@ public class MapGenerator : MonoBehaviour {
 	}
 
 	public void AssignSRandomTerrain() {
-			float noiseValue =  Mathf.PerlinNoise(_line_index * slopeRate + _offsetX, _offsetY);
-			IdentifyTerrainPiece(noiseValue);
+		float noiseValue =  Mathf.PerlinNoise(_line_index * slopeRate + _offsetX, _offsetY);
+		IdentifyTerrainPiece(noiseValue);
 
 
-			//If terrainholder reach its maximum capacity
-			if (_terrainsHolder.Count > maxTerrainCapacity) {
-				TerrainBuilder eraseTerrain = _terrainsHolder.Dequeue();
-				PoolManager.instance.Destroy(eraseTerrain.gameObject);
-			}
+		//If terrainholder reach its maximum capacity
+		if (_terrainsHolder.Count > maxTerrainCapacity) {
+			TerrainBuilder eraseTerrain = _terrainsHolder.Dequeue();
+			PoolManager.instance.Destroy(eraseTerrain.gameObject);
+		}
 	}
 
 
@@ -62,7 +63,7 @@ public class MapGenerator : MonoBehaviour {
 			InstantiateTerrain(PoolingID.TerrainPlain);
 		}
 		 
-		for(int i = 0; i < maxTerrainCapacity; i++) {
+		for(int i = 0; i < maxTerrainCapacity-prebuildNum; i++) {
 			AssignSRandomTerrain();
 		}
 	}
@@ -90,18 +91,51 @@ public class MapGenerator : MonoBehaviour {
 
 	private TerrainBuilder InstantiateTerrain(int object_id) {
 		GameObject createdObject = PoolManager.instance.ReuseObject(object_id );
+
 		createdObject.SetActive(true);
 		createdObject.transform.SetParent( _terainholder.transform );
 		createdObject.transform.localPosition = new Vector3(0,0, _line_index);
 		createdObject.SetActive(true);
 
 		TerrainBuilder terrainBuilder = createdObject.GetComponent<TerrainBuilder>();
+		terrainBuilder.SetUp();
 		terrainBuilder.GenerateObstacle();
 
 		_terrainsHolder.Enqueue( terrainBuilder );
+		
 
 		_line_index++;
 		return createdObject.GetComponent<TerrainBuilder>();
 	}
 
+
+	#region Grid Panel
+	private void GridPush(TerrainBuilder p_terrainBuilder) {
+		int offset =  p_terrainBuilder.total_size - p_terrainBuilder.activate_size;
+
+		for(int i = 0; i < p_terrainBuilder.activate_size; i++) {
+			GameObject gridTerrain = p_terrainBuilder.stored_prefabs[i + offset].gameObject;
+			Vector3 worldPosition = gridTerrain.transform.position;
+			// bool isWalkable = gridTer
+
+		}
+		
+
+		// terrainBuilder.activate_size
+		// gridMap.Add(
+		// 	new Grid[]
+		// );
+
+	}
+
+	private void GridPush(int p_index) {
+
+	}
+
+	// public Grid UnitPosToGrid(Vector3 p_unit_position) {
+
+	// }
+
+
+	#endregion
 }

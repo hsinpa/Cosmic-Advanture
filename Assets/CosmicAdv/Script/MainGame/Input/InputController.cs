@@ -23,8 +23,6 @@ public class InputController : Observer {
     public override void OnNotify(string p_event, params object[] p_objects) {
         base.OnNotify(p_event, p_objects);
 
-        // switch (p_event) {
-        // }
     }
 
 	public void SetUp(BaseUnit p_baseUnit) {
@@ -39,34 +37,25 @@ public class InputController : Observer {
 		if (_input == null) return;
 
 		if (_input.IsDownClick()) {
-			Debug.Log("DownClick");
             moveDir = -Vector3.forward;
-
         }
         if (_input.IsFrontClick()) {
-			Debug.Log("FrontClick");
             moveDir = Vector3.forward;
         }
 
         if (_input.IsLeftClick()) {
-			Debug.Log("LeftClick");
             moveDir = Vector3.left;
-        
         }
 
         if (_input.IsRightClick()) {
-			Debug.Log("RightClick");
             moveDir = Vector3.right;
         }
 
         if (_input.IsTap()) {
-			Debug.Log("TapClick");
             moveDir = Vector3.forward;
         }
 
-
 		if (_input.IsRelease()) {
-			Debug.Log("IsRelease");
             _playerUnit.Move(_moveDir);
 		}
 	}
