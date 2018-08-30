@@ -5,18 +5,24 @@ using Utility;
 
 namespace  CA_Terrain
 {
-	public abstract class TerrainBuilder : MonoBehaviour {
-		#region Inspector Parameters
-			public Terrain_STP terrain_stp;
-			public int total_size;
-			public int activate_size;
-			public int index_offset {
-				get {
-					return total_size - activate_size;
-				}
-			}
+    public abstract class TerrainBuilder : MonoBehaviour {
+        #region Inspector Parameters
+        public Terrain_STP terrain_stp;
+        public int total_size;
+        public int activate_size;
+        public int index_offset {
+            get {
+                return total_size - activate_size;
+            }
+        }
 
-			[Range(0, 0.8f)]
+        public int activateStartXPos {
+                get {
+                    return Mathf.RoundToInt((index_offset* 0.5f));
+            }
+        }
+
+        [Range(0, 0.8f)]
 			public float obstacleDistribution;
 
 			public GameObject[] stored_prefabs;
@@ -28,16 +34,19 @@ namespace  CA_Terrain
 		#endregion
 
 		public void SetUp() {
-			grids =	ReCalculateGrid();
+            PreCheck();
+
+            grids =	ReCalculateGrid();
 		}
 
 		private CA_Grid[] ReCalculateGrid() {
 			CA_Grid[] grids = new CA_Grid[index_offset];
 			for (int i = 0 ; i < index_offset; i++) {
-				Vector2 gridPos = new Vector2(stored_prefabs[i].transform.position.x, stored_prefabs[i].transform.position.z);
+                int offsetIndex = i + activateStartXPos;
+				Vector2 gridPos = new Vector2(stored_prefabs[offsetIndex].transform.position.x, stored_prefabs[offsetIndex].transform.position.z);
 				grids[i] = new CA_Grid(gridPos, true);
-			}
-			return grids;
+            }
+            return grids;
 		}
 
 		private void PreCheck() {

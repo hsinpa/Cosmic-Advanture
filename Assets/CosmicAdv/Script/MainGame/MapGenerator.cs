@@ -5,137 +5,157 @@ using CA_Terrain;
 using Utility;
 
 public class MapGenerator : MonoBehaviour {
-	public float slopeRate;
-	public int maxTerrainCapacity = 20;
+    public float slopeRate;
+    public int maxTerrainCapacity = 20;
+    public static Vector2 gridSize;
 
-	public List<GameObject> terrainPrefab = new List<GameObject>();
-	public List<Obstacle_STP> _obstacleHolder = new List<Obstacle_STP>();
+    public List<GameObject> terrainPrefab = new List<GameObject>();
+    public List<Obstacle_STP> _obstacleHolder = new List<Obstacle_STP>();
 
-	private int _offsetX, _offsetY, _line_index = 0;
-	private Queue<TerrainBuilder> _terrainsHolder = new Queue<TerrainBuilder>();
-	private GameObject _terainholder;
-	private List<CA_Grid[]> gridMap = new List<CA_Grid[]>();
+    private int perlin_offsetX, perlin_offsetY, _line_index = 0;
+    private int offsetX;
+    private Queue<TerrainBuilder> _terrainsHolder = new Queue<TerrainBuilder>();
+    private GameObject _terainholder;
 
-	public void SetUp(GameObject p_terrain_holder ) {
-		_terainholder = p_terrain_holder;
+    [SerializeField]
+    private List<CA_Grid[]> gridMap = new List<CA_Grid[]>();
 
-		_offsetX = Random.Range(0, 20000);
-		_offsetY = Random.Range(0, 20000);
+    public void SetUp(GameObject p_terrain_holder) {
+        _terainholder = p_terrain_holder;
 
-		PreparePooling();
-		PrebuildMap();
-	}
+        perlin_offsetX = Random.Range(0, 20000);
+        perlin_offsetY = Random.Range(0, 20000);
+        CalculateGridSize();
 
-	public void AssignSRandomTerrain() {
-		float noiseValue =  Mathf.PerlinNoise(_line_index * slopeRate + _offsetX, _offsetY);
-		IdentifyTerrainPiece(noiseValue);
+        PreparePooling();
+        PrebuildMap();
 
 
-		//If terrainholder reach its maximum capacity
-		if (_terrainsHolder.Count > maxTerrainCapacity) {
-			TerrainBuilder eraseTerrain = _terrainsHolder.Dequeue();
-			PoolManager.instance.Destroy(eraseTerrain.gameObject);
-		}
-	}
+    }
+
+    private void CalculateGridSize() {
+        if (terrainPrefab.Count > 0) {
+            TerrainBuilder terrainBuilder = terrainPrefab[0].GetComponent<TerrainBuilder>();
+            MeshRenderer terrainMesh = terrainBuilder.transform.Find("Terrains").GetChild(0).GetComponent<MeshRenderer>();
+            gridSize = new Vector2(terrainMesh.bounds.size.x, terrainMesh.bounds.size.z);
+            //offsetX = Mathf.RoundToInt(terrainBuilder.index_offset - (terrainBuilder.activate_size * 0.5f) );
+            offsetX = terrainBuilder.index_offset;
+            Debug.Log("OffsetX " + offsetX);
+        }
+    }
+
+    public void AssignSRandomTerrain() {
+        float noiseValue = Mathf.PerlinNoise(_line_index * slopeRate + perlin_offsetX, perlin_offsetY);
+        IdentifyTerrainPiece(noiseValue);
+
+
+        //If terrainholder reach its maximum capacity
+        if (_terrainsHolder.Count > maxTerrainCapacity) {
+            TerrainBuilder eraseTerrain = _terrainsHolder.Dequeue();
+            gridMap.RemoveAt(0);
+            PoolManager.instance.Destroy(eraseTerrain.gameObject);
+        }
+    }
 
 
     private void PreparePooling() {
         //All type of terrain;
-		int terrainSize = 15;
-		foreach (GameObject t_prefab in terrainPrefab) {
-			TerrainBuilder tBuilder = t_prefab.GetComponent<TerrainBuilder>();
-        	PoolManager.instance.CreatePool(t_prefab, tBuilder.terrain_stp._id, terrainSize);
-		}
+        int terrainSize = 15;
+        foreach (GameObject t_prefab in terrainPrefab) {
+            TerrainBuilder tBuilder = t_prefab.GetComponent<TerrainBuilder>();
+            PoolManager.instance.CreatePool(t_prefab, tBuilder.terrain_stp._id, terrainSize);
+        }
 
-		int obstacleSize = 20;
+        int obstacleSize = 20;
         //All type of Obstacle;
-		foreach (Obstacle_STP t_object in _obstacleHolder) {
-		    PoolManager.instance.CreatePool(t_object.ObstaclePrefab, t_object._id, obstacleSize);
-		}
+        foreach (Obstacle_STP t_object in _obstacleHolder) {
+            PoolManager.instance.CreatePool(t_object.ObstaclePrefab, t_object._id, obstacleSize);
+        }
 
         //All type of Coin;
     }
 
-	private void PrebuildMap() {
-		//prebuild the first three tiles as plain
-		int prebuildNum = 3;
-		for(int p = 0; p < prebuildNum; p++) {
-			InstantiateTerrain(PoolingID.TerrainPlain);
-		}
-		 
-		for(int i = 0; i < maxTerrainCapacity-prebuildNum; i++) {
-			AssignSRandomTerrain();
-		}
-	}
+    private void PrebuildMap() {
+        //prebuild the first three tiles as plain
+        int prebuildNum = 3;
+        for (int p = 0; p < prebuildNum; p++) {
+            InstantiateTerrain(PoolingID.TerrainPlain);
+        }
 
-	private void IdentifyTerrainPiece(float p_noiseValue) {
-		//Hard code now
-		// Debug.Log("Noise Value " + p_noiseValue);
+        for (int i = 0; i < maxTerrainCapacity - prebuildNum; i++) {
+            AssignSRandomTerrain();
+        }
+    }
 
-		//Plain
-		if (p_noiseValue > 0.45f && p_noiseValue < 0.5f) {
-			InstantiateTerrain(PoolingID.TerrainPlain);
-			return;
-		}
+    private void IdentifyTerrainPiece(float p_noiseValue) {
+        //Hard code now
+        // Debug.Log("Noise Value " + p_noiseValue);
 
-		//Terrain
-		if (p_noiseValue >= 0.5f) {
-			InstantiateTerrain(PoolingID.TerrainRoad);
-		}
+        //Plain
+        if (p_noiseValue > 0.45f && p_noiseValue < 0.5f) {
+            InstantiateTerrain(PoolingID.TerrainPlain);
+            return;
+        }
 
-		//Train
-		if (p_noiseValue <= 0.45f) {
-			InstantiateTerrain(PoolingID.TerrainTrain);
-		}
-	}
+        //Terrain
+        if (p_noiseValue >= 0.5f) {
+            InstantiateTerrain(PoolingID.TerrainRoad);
+        }
 
-	private TerrainBuilder InstantiateTerrain(int object_id) {
-		GameObject createdObject = PoolManager.instance.ReuseObject(object_id );
+        //Train
+        if (p_noiseValue <= 0.45f) {
+            InstantiateTerrain(PoolingID.TerrainTrain);
+        }
+    }
 
-		createdObject.SetActive(true);
-		createdObject.transform.SetParent( _terainholder.transform );
-		createdObject.transform.localPosition = new Vector3(0,0, _line_index);
-		createdObject.SetActive(true);
+    private TerrainBuilder InstantiateTerrain(int object_id) {
+        GameObject createdObject = PoolManager.instance.ReuseObject(object_id);
 
-		TerrainBuilder terrainBuilder = createdObject.GetComponent<TerrainBuilder>();
-		terrainBuilder.SetUp();
-		terrainBuilder.GenerateObstacle();
+        createdObject.SetActive(true);
+        createdObject.transform.SetParent(_terainholder.transform);
+        createdObject.transform.localPosition = new Vector3(0, 0, _line_index);
+        createdObject.SetActive(true);
 
-		_terrainsHolder.Enqueue( terrainBuilder );
-		
+        TerrainBuilder terrainBuilder = createdObject.GetComponent<TerrainBuilder>();
+        terrainBuilder.SetUp();
+        terrainBuilder.GenerateObstacle();
 
-		_line_index++;
-		return createdObject.GetComponent<TerrainBuilder>();
-	}
+        _terrainsHolder.Enqueue(terrainBuilder);
+        gridMap.Add(terrainBuilder.grids);
 
 
-	#region Grid Panel
-	private void GridPush(TerrainBuilder p_terrainBuilder) {
-		int offset =  p_terrainBuilder.total_size - p_terrainBuilder.activate_size;
+        _line_index++;
+        return createdObject.GetComponent<TerrainBuilder>();
+    }
 
-		for(int i = 0; i < p_terrainBuilder.activate_size; i++) {
-			GameObject gridTerrain = p_terrainBuilder.stored_prefabs[i + offset].gameObject;
-			Vector3 worldPosition = gridTerrain.transform.position;
-			// bool isWalkable = gridTer
 
-		}
-		
+    #region Grid Panel
+    private CA_Grid FindGridByWorldPosition(Vector3 p_position) {
+        //Find Y
+        int Y =  Mathf.RoundToInt(p_position.z / gridSize.y) % _line_index;
 
-		// terrainBuilder.activate_size
-		// gridMap.Add(
-		// 	new Grid[]
-		// );
+        //Find X
+        int X = Mathf.RoundToInt(p_position.x);
 
-	}
+        if (X < 0 || Y < 0 || Y >= gridMap.Count || X >= gridMap[Y].Length)
+            //Return unwalkable if pos not even exist in array
+            return new CA_Grid(Vector2.zero, false);
+        else {
+            //Debug.Log("Grid Pos " + gridMap[Y][X].position);
+            //Debug.Log("Grid Index Y:" + Y + ", X:" + X);
+
+            return gridMap[Y][X];
+        }
+    }
+
+    public bool IsPosAvailable(Vector3 p_position, Vector3 p_direction) {
+        Vector3 aheadPosition = p_position + p_direction;
+        CA_Grid caGrid = FindGridByWorldPosition(aheadPosition);
+        return caGrid.isWalkable;
+    }
 
 	private void GridPush(int p_index) {
 
 	}
-
-	// public Grid UnitPosToGrid(Vector3 p_unit_position) {
-
-	// }
-
-
 	#endregion
 }

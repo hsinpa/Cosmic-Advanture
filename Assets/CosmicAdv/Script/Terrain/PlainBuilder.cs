@@ -31,7 +31,9 @@ namespace CA_Terrain
 			Plain_STP plain_stp = (Plain_STP) terrain_stp;
 
 			for (int i = 0; i < activate_size; i++) {
-					Transform g_prefab = stored_prefabs[i + index_offset].transform;
+                int offsetIndex = i + activateStartXPos;
+
+                Transform g_prefab = stored_prefabs[offsetIndex].transform;
 
 					if (g_prefab.name.IndexOf("On") > 0 && UtilityMethod.PercentageGame(obstacleDistribution) ) {
 						Obstacle_STP randomObstacle = plain_stp.obstables[Random.Range(0, plain_stp.obstables.Count)];
@@ -41,8 +43,8 @@ namespace CA_Terrain
 						generate_obstacle.SetActive(true);
 
 						grids[i].isWalkable = false;
-					}
-			}	
+                }
+            }	
 		}
 	}
 }

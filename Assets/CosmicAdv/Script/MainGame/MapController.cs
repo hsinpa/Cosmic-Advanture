@@ -33,7 +33,7 @@ public class MapController : Observer {
         baseUnit.transform.position = new Vector3(5, baseUnit.transform.position.y, 1);
         baseUnit.SetUp();
 		_mapGeneration.SetUp(holderObject);
-        _inputController.SetUp(baseUnit);
+        _inputController.SetUp(baseUnit, _mapGeneration);
 
         _camera.SetUp(baseUnit);
 	}

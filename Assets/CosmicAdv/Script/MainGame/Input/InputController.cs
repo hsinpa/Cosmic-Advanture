@@ -7,11 +7,13 @@ using InputWrapper;
 
 public class InputController : Observer {
 	BaseUnit _playerUnit;
+    MapGenerator _map;
 	InputManager _input;
     Vector3 moveDir {
         get {
             return _moveDir;
         } set {
+
             _playerUnit.OnClick();
             _moveDir = value;
         }
@@ -22,11 +24,11 @@ public class InputController : Observer {
 
     public override void OnNotify(string p_event, params object[] p_objects) {
         base.OnNotify(p_event, p_objects);
-
     }
 
-	public void SetUp(BaseUnit p_baseUnit) {
+	public void SetUp(BaseUnit p_baseUnit, MapGenerator p_map) {
 		_playerUnit = p_baseUnit;
+        _map = p_map;
 
 		if (_input == null)
 			_input = new InputManager(gameObject);
@@ -56,9 +58,13 @@ public class InputController : Observer {
         }
 
 		if (_input.IsRelease()) {
-            _playerUnit.Move(_moveDir);
-		}
-	}
+
+            bool isMove = _map.IsPosAvailable(_playerUnit.transform.position, _moveDir);
+            BaseUnit.MoveDir moveDir = new BaseUnit.MoveDir(_moveDir, isMove);
+            _playerUnit.Move(moveDir);
+
+        }
+    }
 
 
 }

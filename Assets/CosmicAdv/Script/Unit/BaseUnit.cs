@@ -11,7 +11,7 @@ public class BaseUnit : MonoBehaviour {
 
     public float speed = 5;
     public float speedRot = 1000;
-    private float shrinkValue = 0.6f;
+    private float shrinkValue = 0.4f;
     private float shrinkOffset {
         get {
            return 1 - shrinkValue;
@@ -23,7 +23,7 @@ public class BaseUnit : MonoBehaviour {
     Rigidbody rb;
 
     private Vector3 curPosition;
-    private Vector3 nextDir;
+    private MoveDir nextDir;
     private bool isHolding;
     private bool isLanding;
     private float initialYPos;
@@ -45,18 +45,24 @@ public class BaseUnit : MonoBehaviour {
 
     void Update()
     {
-        if (nextDir != Vector3.zero)
+        if (nextDir.direction != Vector3.zero) {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(nextDir.direction), speedRot * Time.deltaTime);
+            float lerpYScale = Mathf.Lerp(transform.localScale.y, 1, 0.4f);
+            transform.localScale = new Vector3(1, lerpYScale, 1);
+        }
+
+        if (nextDir.enable)
         {
-            float dist = Vector3.Distance(transform.position, curPosition + nextDir);
-            if (dist < 0.05f)
+            float dist = Vector3.Distance(transform.position, curPosition + nextDir.direction);
+            if (dist < 0.01f)
             {
                 ResetPosition();
             }
             else {
-                transform.position = Vector3.MoveTowards(transform.position, curPosition + nextDir, speed * Time.deltaTime);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(nextDir), speedRot * Time.deltaTime);
-                float lerpYScale = Mathf.Lerp( transform.localScale.y, 1, 0.5f);
-                transform.localScale = new Vector3(1, lerpYScale, 1);
+                transform.position = Vector3.MoveTowards(transform.position, curPosition + nextDir.direction, speed * Time.deltaTime);
+                //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(nextDir.direction), speedRot * Time.deltaTime);
+                //float lerpYScale = Mathf.Lerp( transform.localScale.y, 1, 0.4f);
+                //transform.localScale = new Vector3(1, lerpYScale, 1);
             }
         } else if (isHolding) {
             //Scale models
@@ -70,25 +76,41 @@ public class BaseUnit : MonoBehaviour {
     }
 
     private void ResetPosition() {
-        nextDir = Vector3.zero;
+        nextDir.enable = false;
+        nextDir.direction = Vector3.zero;
         curPosition = transform.position;
         curPosition.x = Mathf.Round(curPosition.x);
         curPosition.z = Mathf.Round(curPosition.z);
         transform.position = curPosition;
         transform.localScale = Vector3.one;
+        isLanding = true;
     }
 
     public virtual void OnClick() {
         isHolding = true;
     }
 
-	public virtual void Move(Vector3 p_direction) {
+	public virtual void Move(MoveDir p_direction) {
+
         //Currently moving
-        if (nextDir != Vector3.zero && isLanding) return;
-        rb.AddForce(0, jumpForce, 0);
-        nextDir = p_direction;
         isHolding = false;
+        nextDir = p_direction;
+
+        if (!p_direction.enable || !isLanding) return;
+
+        rb.AddForce(0, jumpForce, 0);
         isLanding = false;
+    }
+
+    public struct MoveDir {
+        public Vector3 direction;
+        public bool enable;
+
+        public MoveDir(Vector3 direction, bool enable)
+        {
+            this.direction = direction;
+            this.enable = enable;
+        }
     }
 
 }
