@@ -11,6 +11,7 @@ public class MapGenerator : MonoBehaviour {
 
     public List<GameObject> terrainPrefab = new List<GameObject>();
     public List<Obstacle_STP> _obstacleHolder = new List<Obstacle_STP>();
+    public List<AnimatedObject_STP> _animatedHolder = new List<AnimatedObject_STP>();
 
     private int perlin_offsetX, perlin_offsetY, _line_index = 0;
     private int offsetX;
@@ -29,8 +30,6 @@ public class MapGenerator : MonoBehaviour {
 
         PreparePooling();
         PrebuildMap();
-
-
     }
 
     private void CalculateGridSize() {
@@ -40,14 +39,12 @@ public class MapGenerator : MonoBehaviour {
             gridSize = new Vector2(terrainMesh.bounds.size.x, terrainMesh.bounds.size.z);
             //offsetX = Mathf.RoundToInt(terrainBuilder.index_offset - (terrainBuilder.activate_size * 0.5f) );
             offsetX = terrainBuilder.index_offset;
-            Debug.Log("OffsetX " + offsetX);
         }
     }
 
     public void AssignSRandomTerrain() {
         float noiseValue = Mathf.PerlinNoise(_line_index * slopeRate + perlin_offsetX, perlin_offsetY);
         IdentifyTerrainPiece(noiseValue);
-
 
         //If terrainholder reach its maximum capacity
         if (_terrainsHolder.Count > maxTerrainCapacity) {
@@ -73,6 +70,11 @@ public class MapGenerator : MonoBehaviour {
         }
 
         //All type of Coin;
+        int animatedSize = 15;
+        foreach (AnimatedObject_STP t_object in _animatedHolder) {
+            PoolManager.instance.CreatePool(t_object.ObstaclePrefab, t_object._id, obstacleSize);
+        }
+
     }
 
     private void PrebuildMap() {
@@ -82,7 +84,7 @@ public class MapGenerator : MonoBehaviour {
             InstantiateTerrain(PoolingID.TerrainPlain);
         }
 
-        for (int i = 0; i < maxTerrainCapacity - prebuildNum; i++) {
+        for (int i = 0; i < 10 - prebuildNum; i++) {
             AssignSRandomTerrain();
         }
     }
@@ -128,11 +130,16 @@ public class MapGenerator : MonoBehaviour {
         return createdObject.GetComponent<TerrainBuilder>();
     }
 
-
     #region Grid Panel
     private CA_Grid FindGridByWorldPosition(Vector3 p_position) {
         //Find Y
-        int Y =  Mathf.RoundToInt(p_position.z / gridSize.y) % _line_index;
+        int Y =  Mathf.RoundToInt(gridMap.Count - (_line_index - p_position.z));
+        // Debug.Log("p_position.z " + p_position.z );
+        // Debug.Log("_line_index " + (_line_index - p_position.z) );
+
+        // float percentage = ((float)gridMap.Count /  _line_index);
+        // Debug.Log("Y " +  (gridMap.Count - (_line_index - p_position.z)));
+
 
         //Find X
         int X = Mathf.RoundToInt(p_position.x);
@@ -154,8 +161,5 @@ public class MapGenerator : MonoBehaviour {
         return caGrid.isWalkable;
     }
 
-	private void GridPush(int p_index) {
-
-	}
 	#endregion
 }

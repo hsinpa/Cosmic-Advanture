@@ -9,6 +9,9 @@ public class InputController : Observer {
 	BaseUnit _playerUnit;
     MapGenerator _map;
 	InputManager _input;
+    
+    int farTopZPosition = 0;
+
     Vector3 moveDir {
         get {
             return _moveDir;
@@ -60,8 +63,16 @@ public class InputController : Observer {
 		if (_input.IsRelease()) {
 
             bool isMove = _map.IsPosAvailable(_playerUnit.transform.position, _moveDir);
-            BaseUnit.MoveDir moveDir = new BaseUnit.MoveDir(_moveDir, isMove);
-            _playerUnit.Move(moveDir);
+            BaseUnit.MoveDir moveDirHolder = new BaseUnit.MoveDir(_moveDir, isMove);
+            isMove = _playerUnit.Move(moveDirHolder);
+
+
+            //Generate new Terrain
+            if (isMove && _moveDir == Vector3.forward && farTopZPosition < _playerUnit.transform.position.z) {
+                farTopZPosition = (int)(_playerUnit.transform.position.z);
+
+                _map.AssignSRandomTerrain();
+            }
 
         }
     }

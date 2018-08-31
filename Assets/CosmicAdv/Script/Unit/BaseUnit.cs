@@ -28,6 +28,9 @@ public class BaseUnit : MonoBehaviour {
     private bool isLanding;
     private float initialYPos;
 
+    private float moveTimeStamp = 0;
+    private float moveTimePeroid = 0.2f;
+
     public Animator animator {
         get {
             return GetComponentInChildren<Animator>();
@@ -71,8 +74,8 @@ public class BaseUnit : MonoBehaviour {
             transform.localScale = new Vector3(1, lerpYScale, 1);
         }
 
-        if (transform.position.y - initialYPos < 0.1f && !isLanding)
-            isLanding = true;
+        // if (transform.position.y - initialYPos < 0.001f && !isLanding)
+        //     isLanding = true;
     }
 
     private void ResetPosition() {
@@ -90,16 +93,19 @@ public class BaseUnit : MonoBehaviour {
         isHolding = true;
     }
 
-	public virtual void Move(MoveDir p_direction) {
+	public virtual bool Move(MoveDir p_direction) {
 
         //Currently moving
         isHolding = false;
         nextDir = p_direction;
 
-        if (!p_direction.enable || !isLanding) return;
+        if (!p_direction.enable || !isLanding || Time.time < moveTimeStamp) return false;
 
+        moveTimeStamp = Time.time + moveTimePeroid;
         rb.AddForce(0, jumpForce, 0);
         isLanding = false;
+
+        return true;
     }
 
     public struct MoveDir {

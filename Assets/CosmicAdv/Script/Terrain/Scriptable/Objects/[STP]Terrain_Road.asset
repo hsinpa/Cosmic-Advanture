@@ -17,5 +17,7 @@ MonoBehaviour:
   - {fileID: 1136003367448260, guid: d87ea47801c86466185fe03a71df2935, type: 2}
   DisableTerrainPrefab: {fileID: 1136003367448260, guid: d87ea47801c86466185fe03a71df2935,
     type: 2}
-  vehicles: []
+  vehicles:
+  - {fileID: 11400000, guid: f08cf23ce70a44552897daf231652b94, type: 2}
+  - {fileID: 11400000, guid: 0ef8bcde5c40540a2977ee4f89b4ea8f, type: 2}
   staticObstacle: 0
