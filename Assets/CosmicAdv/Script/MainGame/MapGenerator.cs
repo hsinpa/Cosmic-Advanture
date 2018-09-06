@@ -49,6 +49,7 @@ public class MapGenerator : MonoBehaviour {
         //If terrainholder reach its maximum capacity
         if (_terrainsHolder.Count > maxTerrainCapacity) {
             TerrainBuilder eraseTerrain = _terrainsHolder.Dequeue();
+            eraseTerrain.OnTerrainDestroy();
             gridMap.RemoveAt(0);
             PoolManager.instance.Destroy(eraseTerrain.gameObject);
         }

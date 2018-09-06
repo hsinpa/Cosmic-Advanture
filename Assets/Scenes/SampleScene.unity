@@ -260,7 +260,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4593301833208632, guid: 98b1f9db53cf641e3bdb3d8bf22e17d9, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.76
+      value: -3.39
       objectReference: {fileID: 0}
     - target: {fileID: 4593301833208632, guid: 98b1f9db53cf641e3bdb3d8bf22e17d9, type: 2}
       propertyPath: m_LocalPosition.y
@@ -813,7 +813,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 949ff1a554db3471891ebd8171694649, type: 2}
   - {fileID: 11400000, guid: d02b9fdc114c14f729f01dff621b0b5f, type: 2}
   - {fileID: 11400000, guid: bab178cc6bb964c06a356aa2e6edd0ab, type: 2}
-  _animatedHolder: []
+  _animatedHolder:
+  - {fileID: 11400000, guid: f08cf23ce70a44552897daf231652b94, type: 2}
+  - {fileID: 11400000, guid: 0ef8bcde5c40540a2977ee4f89b4ea8f, type: 2}
+  - {fileID: 11400000, guid: 6d9e360b83ad14e76bb1b8556e797e89, type: 2}
 --- !u!1001 &1232368966
 Prefab:
   m_ObjectHideFlags: 0

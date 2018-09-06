@@ -11,6 +11,7 @@ namespace CA_Terrain
 
 		public GameObject ObstaclePrefab;
 		public Material MaterialPrefab;
+		public Color[] colorSet;
 
 		public float[] speedRange;
 		public float randomSpeed {
@@ -22,6 +23,16 @@ namespace CA_Terrain
 			}
 		}
 
+		public float displayPeriod;
+		public float displayErrorRange;
+		public float _displayPeriod {
+			get {
+				float randomPeriod = Random.Range(displayPeriod - displayErrorRange, displayPeriod + displayErrorRange);
+				return Mathf.Clamp(randomPeriod, 0, displayPeriod + displayErrorRange);
+			}
+		}
+
+		public int maxVehicleNUm = 5;
 		public ScriptableObject theme;
 	}
 }

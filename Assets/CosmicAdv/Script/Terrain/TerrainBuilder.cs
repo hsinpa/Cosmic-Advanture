@@ -94,15 +94,19 @@ namespace  CA_Terrain
 			GenerateObstacle(true);
 		}
 
-		public abstract void GenerateObstacle(bool p_isPreBuild = false);
-
 		private void Clear() {
 			UtilityMethod.ClearChildObject(Obstacle.transform);
 			UtilityMethod.ClearChildObject(Terrains.transform);
 			UtilityMethod.ClearChildObject(AnimatedObject.transform);
 		}
 
+		public abstract void GenerateObstacle(bool p_isPreBuild = false);
 
+		public virtual void OnTerrainDestroy() {
+			int animatedCount = AnimatedObject.transform.childCount;
+			for (int i = 0; i < animatedCount; i++)
+				PoolManager.instance.Destroy(AnimatedObject.transform.GetChild(i).gameObject);
+		}
 
 	}
 }
