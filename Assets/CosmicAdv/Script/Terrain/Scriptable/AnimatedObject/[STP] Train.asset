@@ -9,14 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55b6393408d24492dbf6e5319768f66a, type: 3}
-  m_Name: '[STP] Sedan'
+  m_Name: '[STP] Train'
   m_EditorClassIdentifier: 
-  _id: 30001
+  _id: 30003
   _tag: Vehicle
-  ObstaclePrefab: {fileID: 1542788413190944, guid: daff8521412494fbd9fd839a7a96569c,
+  ObstaclePrefab: {fileID: 1682901117775716, guid: 0e436e5e322554575835afe401e2a35c,
     type: 2}
   MaterialPrefab: {fileID: 2100000, guid: 1315d190bb6c2415081788b0b3ace4ed, type: 2}
   speedRange:
-  - 3
-  - 7
+  - 50
   theme: {fileID: 0}

@@ -9,12 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54c03f8c363f24d16941ae8a4947c5b8, type: 3}
-  m_Name: '[STP]Train'
+  m_Name: '[STP]Terrain_Train'
   m_EditorClassIdentifier: 
   _id: 10003
   TerrainPrefab:
   - {fileID: 1806261282109346, guid: a6499b45b2955407fa267c0794aabdeb, type: 2}
   DisableTerrainPrefab: {fileID: 1965894739331106, guid: d618d1482304c46f9bc45e63a4cdf19b,
     type: 2}
-  vehicles: []
+  vehicles:
+  - {fileID: 11400000, guid: 6d9e360b83ad14e76bb1b8556e797e89, type: 2}
   staticObstacle: 0
