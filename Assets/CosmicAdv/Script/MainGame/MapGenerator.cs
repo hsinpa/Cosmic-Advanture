@@ -85,7 +85,7 @@ public class MapGenerator : MonoBehaviour {
             InstantiateTerrain(PoolingID.TerrainPlain);
         }
 
-        for (int i = 0; i < 10 - prebuildNum; i++) {
+        for (int i = 0; i < 14 - prebuildNum; i++) {
             AssignSRandomTerrain();
         }
     }

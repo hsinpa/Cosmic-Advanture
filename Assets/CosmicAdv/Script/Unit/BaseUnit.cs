@@ -29,7 +29,7 @@ public class BaseUnit : MonoBehaviour {
     private float initialYPos;
 
     private float moveTimeStamp = 0;
-    private float moveTimePeroid = 0.2f;
+    private float moveTimePeroid = 0.1f;
 
     public Animator animator {
         get {
@@ -56,16 +56,16 @@ public class BaseUnit : MonoBehaviour {
 
         if (nextDir.enable)
         {
-            float dist = Vector3.Distance(transform.position, curPosition + nextDir.direction);
-            if (dist < 0.01f)
+            Vector3 unitPos = new Vector3(transform.position.x, 0, transform.position.z),
+                    targetPos = curPosition + nextDir.direction;
+                    targetPos.y = unitPos.y;
+            float dist = Vector3.Distance(unitPos, targetPos);
+            if (dist < 0.001f)
             {
                 ResetPosition();
             }
             else {
                 transform.position = Vector3.MoveTowards(transform.position, curPosition + nextDir.direction, speed * Time.deltaTime);
-                //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(nextDir.direction), speedRot * Time.deltaTime);
-                //float lerpYScale = Mathf.Lerp( transform.localScale.y, 1, 0.4f);
-                //transform.localScale = new Vector3(1, lerpYScale, 1);
             }
         } else if (isHolding) {
             //Scale models
@@ -74,8 +74,6 @@ public class BaseUnit : MonoBehaviour {
             transform.localScale = new Vector3(1, lerpYScale, 1);
         }
 
-        // if (transform.position.y - initialYPos < 0.001f && !isLanding)
-        //     isLanding = true;
     }
 
     private void ResetPosition() {
@@ -97,9 +95,15 @@ public class BaseUnit : MonoBehaviour {
 
         //Currently moving
         isHolding = false;
-        nextDir = p_direction;
 
-        if (!p_direction.enable || !isLanding || Time.time < moveTimeStamp) return false;
+        if (!isLanding || Time.time < moveTimeStamp)
+            return false;
+
+        nextDir = p_direction;
+        if (!p_direction.enable) {
+            // transform.localScale = Vector3.one;
+            return false;
+        }
 
         moveTimeStamp = Time.time + moveTimePeroid;
         rb.AddForce(0, jumpForce, 0);

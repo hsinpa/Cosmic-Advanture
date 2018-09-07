@@ -66,11 +66,10 @@ public class InputController : Observer {
             BaseUnit.MoveDir moveDirHolder = new BaseUnit.MoveDir(_moveDir, isMove);
             isMove = _playerUnit.Move(moveDirHolder);
 
-
             //Generate new Terrain
             if (isMove && _moveDir == Vector3.forward && farTopZPosition < _playerUnit.transform.position.z) {
                 farTopZPosition = (int)(_playerUnit.transform.position.z);
-
+                
                 _map.AssignSRandomTerrain();
             }
 
