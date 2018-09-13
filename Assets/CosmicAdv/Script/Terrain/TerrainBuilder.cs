@@ -104,7 +104,7 @@ namespace  CA_Terrain
 
 		public virtual void OnTerrainDestroy() {
 			int animatedCount = AnimatedObject.transform.childCount;
-			for (int i = 0; i < animatedCount; i++)
+			for (int i = animatedCount-1; i >= 0; i--)
 				PoolManager.instance.Destroy(AnimatedObject.transform.GetChild(i).gameObject);
 		}
 

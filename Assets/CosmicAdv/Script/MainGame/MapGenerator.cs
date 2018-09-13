@@ -6,7 +6,7 @@ using Utility;
 
 public class MapGenerator : MonoBehaviour {
     public float slopeRate;
-    public int maxTerrainCapacity = 20;
+    public int maxTerrainCapacity = 8;
     public static Vector2 gridSize;
 
     public List<GameObject> terrainPrefab = new List<GameObject>();
@@ -85,7 +85,7 @@ public class MapGenerator : MonoBehaviour {
             InstantiateTerrain(PoolingID.TerrainPlain);
         }
 
-        for (int i = 0; i < 14 - prebuildNum; i++) {
+        for (int i = 0; i < 16 - prebuildNum; i++) {
             AssignSRandomTerrain();
         }
     }

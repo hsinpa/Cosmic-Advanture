@@ -45,7 +45,6 @@ namespace CA_Terrain
 						
 						runtimeObstacle.Add(generate_obstacle);
 						grids[i].isWalkable = false;
-						Debug.Log(grids[i].position +" nOt walkable");
                 }
             }	
 		}

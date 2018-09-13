@@ -13,6 +13,7 @@ namespace CA_Terrain
 		public override void GenerateObstacle(bool p_isPreBuild = false) {
 			if (p_isPreBuild) return;
 
+			vehicles.Clear();
 			Highway_STP hightway_stp = (Highway_STP) terrain_stp;
 			AnimatedObject_STP animatedObject = hightway_stp.vehicles[Random.Range(0, hightway_stp.vehicles.Count)];
 
@@ -28,11 +29,8 @@ namespace CA_Terrain
 		}
 
 		private void Update() {
-
-			if (Time.time > timeRecord) {
-				EnableVehicle();
-			}
-
+			if (!gameObject.activeSelf) return;
+			
 			foreach (GameObject vehicle in vehicles) {
 				if (!vehicle.activeSelf) continue;
 				vehicle.transform.position += Vector3.right * direction * vehicleSpeed * Time.deltaTime;
@@ -40,6 +38,10 @@ namespace CA_Terrain
 				if (vehicle.transform.localPosition.x > stored_prefabs[stored_prefabs.Length-1].transform.position.x ||
 					vehicle.transform.localPosition.x < stored_prefabs[0].transform.position.x)
 					vehicle.SetActive(false);
+			}
+
+			if (Time.time > timeRecord) {
+				EnableVehicle();
 			}
 
 		}
@@ -57,11 +59,6 @@ namespace CA_Terrain
 					return;
 				}
 			}
-
-		}
-
-		public override void OnTerrainDestroy() {
-			
 		}
 
 
