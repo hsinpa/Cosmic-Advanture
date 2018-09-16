@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class General {
-	public const int interactableLayer = 9;
-	public const int interactableLayerMask = 1 << 9;
+	public const int unitLayer = 9;
+	public const int unitLayerMask = 1 << 9;
 
+	public const int vehicleLayer = 10;
+	public const int vehicleLayerMask = 1 << 10;
 }
 
 public class PoolingID {
@@ -15,7 +17,6 @@ public class PoolingID {
 
 	public const int ObstacleTree = 20001;
 	public const int ObstacleItems = 20001;
-	
 }
 
 public class EventFlag {
@@ -27,4 +28,15 @@ public class EventFlag {
 
 		public const string GameEnd = "game.end@event";
 	}
+
+	public class AIAgent {
+		public const string MeetInline = "meet_emeny_inline";
+		public const string HitBlock = "hit_block";
+		public const string UnderAttack = "under_attack";
+	}
+
+	public class AIEvent {
+		public const string LINK = "LINK";
+	}
+	
 }

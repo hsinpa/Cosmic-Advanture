@@ -31,12 +31,6 @@ public class BaseUnit : MonoBehaviour {
     private float moveTimeStamp = 0;
     private float moveTimePeroid = 0.1f;
 
-    public Animator animator {
-        get {
-            return GetComponentInChildren<Animator>();
-        }
-    }
-
     public void SetUp()
     {
         rb = GetComponent<Rigidbody>();
@@ -62,6 +56,7 @@ public class BaseUnit : MonoBehaviour {
             float dist = Vector3.Distance(unitPos, targetPos);
             if (dist < 0.001f)
             {
+                //Debug.Log("UnitPos" + unitPos +", TargetPos" + targetPos);
                 ResetPosition();
             }
             else {
@@ -96,7 +91,9 @@ public class BaseUnit : MonoBehaviour {
         //Currently moving
         isHolding = false;
 
-        if (!isLanding || Time.time < moveTimeStamp)
+
+        if (!isLanding || Time.time < moveTimeStamp ||
+            (p_direction.direction == Vector3.zero && !p_direction.enable))
             return false;
 
         nextDir = p_direction;
@@ -105,9 +102,9 @@ public class BaseUnit : MonoBehaviour {
             return false;
         }
 
-        moveTimeStamp = Time.time + moveTimePeroid;
         rb.AddForce(0, jumpForce, 0);
         isLanding = false;
+        moveTimeStamp = Time.time + moveTimePeroid;
 
         return true;
     }
