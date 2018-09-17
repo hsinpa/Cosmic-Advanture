@@ -13,7 +13,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 0
   _tag: 
-  terrainPrefab: []
   _obstacleHolder: []
   _animatedHolder: []
-  _unitPrefabs: []
+  _unitPrefabs:
+  - instanceNum: 15
+    prefab: {fileID: 1671093062606094, guid: 9c8df84b5bcc14f54a28bfd9beedc8d2, type: 2}
+  - instanceNum: 12
+    prefab: {fileID: 1131225788966868, guid: 447e55ed974ba4e70a32fc9526480046, type: 2}
+  - instanceNum: 10
+    prefab: {fileID: 1278535032047436, guid: 1d22ab67662f543198b3c8d91da39458, type: 2}
+  - instanceNum: 8
+    prefab: {fileID: 1868912947978066, guid: ca3d371443da54e5f9a63aff6a018632, type: 2}
+  - instanceNum: 8
+    prefab: {fileID: 1994774270116616, guid: 63b614584563b45199cb9305f97175e2, type: 2}

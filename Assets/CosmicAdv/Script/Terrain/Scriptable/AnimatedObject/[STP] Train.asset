@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 30003
   _tag: Vehicle
+  poolingNum: 1
   ObstaclePrefab: {fileID: 1682901117775716, guid: 0e436e5e322554575835afe401e2a35c,
     type: 2}
   MaterialPrefab: {fileID: 2100000, guid: 1315d190bb6c2415081788b0b3ace4ed, type: 2}
@@ -21,5 +22,4 @@ MonoBehaviour:
   - 30
   displayPeriod: 8
   displayErrorRange: 4
-  maxVehicleNUm: 1
   theme: {fileID: 0}
