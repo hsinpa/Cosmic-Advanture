@@ -5,10 +5,7 @@ using UnityEngine;
 namespace CA_Terrain
 {
 	[CreateAssetMenu(fileName = "[STP]AnimatedObject", menuName = "STP/AnimatedObject/Vehicle", order = 2)]
-	public class AnimatedObject_STP : ScriptableObject {
-		public int _id;
-		public string _tag;
-
+	public class AnimatedObject_STP : STPObject {
 		public GameObject ObstaclePrefab;
 		public Material MaterialPrefab;
 		public Color[] colorSet;
@@ -31,8 +28,7 @@ namespace CA_Terrain
 				return Mathf.Clamp(randomPeriod, 0, displayPeriod + displayErrorRange);
 			}
 		}
-
-		public int maxVehicleNUm = 5;
+		
 		public ScriptableObject theme;
 	}
 }

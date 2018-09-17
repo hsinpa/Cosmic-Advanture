@@ -17,7 +17,6 @@ public class AIAgent : MonoBehaviour {
 	private EventHandler eventHandler;
 	private StrategyNode currentStrategy;
 
-
 	public AIAgentChart AIAgentChart;
 
 	public bool SetUp() {
@@ -67,7 +66,7 @@ public class AIAgent : MonoBehaviour {
 		BaseUnit.MoveDir dir = new BaseUnit.MoveDir(moveDirection, moveFeasibility);
 		if (!_baseUnit.Move(dir)) {
 			Debug.Log("No Movement is make");
-			Notify(EventFlag.AIAgent.MeetInline);
+			// Notify(EventFlag.AIAgent.MeetInline);
 		}
 	}
 	

@@ -4,10 +4,7 @@ using UnityEngine;
 
 namespace CA_Terrain
 {
-	public abstract class Obstacle_STP : ScriptableObject {
-		public int _id;
-		public string _tag;
-
+	public abstract class Obstacle_STP : STPObject {
 		public GameObject ObstaclePrefab;
 		public ScriptableObject theme;
 	}

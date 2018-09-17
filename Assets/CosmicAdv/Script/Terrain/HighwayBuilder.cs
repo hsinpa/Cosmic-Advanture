@@ -21,7 +21,7 @@ namespace CA_Terrain
 			timePeriod = animatedObject._displayPeriod;
 			vehicleSpeed = animatedObject.randomSpeed;
 
-			for(int i = 0; i < animatedObject.maxVehicleNUm; i++) {
+			for(int i = 0; i < animatedObject.poolingNum; i++) {
 				GameObject generatedVehicle = PoolManager.instance.ReuseObject(animatedObject._id);
 				generatedVehicle.transform.SetParent(AnimatedObject.transform);
 				vehicles.Add(generatedVehicle);

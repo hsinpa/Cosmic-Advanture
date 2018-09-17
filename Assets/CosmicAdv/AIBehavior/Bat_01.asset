@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f15fbba72f5455b93641dd85ecd081, type: 3}
+  m_Name: Bat_01
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 114989968559582782}
+  - {fileID: 114625564681358408}
+  - {fileID: 114958213548330108}
+  agentNode: {fileID: 114989968559582782}
+--- !u!114 &114625564681358408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1346b739559942f0b70d54d34c8da12, type: 3}
+  m_Name: Strategy Node
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -536, y: 200}
+  ports:
+    keys:
+    - tacticsNode
+    - eventNodes
+    - node
+    values:
+    - _fieldName: tacticsNode
+      _node: {fileID: 114625564681358408}
+      _typeQualifiedName: _AIAgent.TacticsNode, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: node
+        node: {fileID: 114958213548330108}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _dynamic: 0
+    - _fieldName: eventNodes
+      _node: {fileID: 114625564681358408}
+      _typeQualifiedName: System.Collections.Generic.List`1[[_AIAgent.EventNode, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _dynamic: 0
+    - _fieldName: node
+      _node: {fileID: 114625564681358408}
+      _typeQualifiedName: _AIAgent.StrategyNode, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: strategies
+        node: {fileID: 114989968559582782}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _dynamic: 0
+  id: strategy.01
+  tacticsNode: {fileID: 114958213548330108}
+  eventNodes: []
+  node: {fileID: 0}
+--- !u!114 &114958213548330108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39af5bbeb07ce4d8186670428a45cc8a, type: 3}
+  m_Name: Tactics Repeat Node
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -792, y: 200}
+  ports:
+    keys:
+    - node
+    values:
+    - _fieldName: node
+      _node: {fileID: 114958213548330108}
+      _typeQualifiedName: _AIAgent.TacticsNode, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: tacticsNode
+        node: {fileID: 114625564681358408}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _dynamic: 0
+  responseTime: 1
+  node: {fileID: 0}
+  customPattern:
+  - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: -1}
+  random: 1
+--- !u!114 &114989968559582782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7aaafa866ee444b7808d8f3a2a74f7e, type: 3}
+  m_Name: AgentBaseNode
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -280, y: 312}
+  ports:
+    keys:
+    - strategies
+    values:
+    - _fieldName: strategies
+      _node: {fileID: 114989968559582782}
+      _typeQualifiedName: System.Collections.Generic.List`1[[_AIAgent.StrategyNode,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: node
+        node: {fileID: 114625564681358408}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _dynamic: 0
+  strategies:
+  - {fileID: 114625564681358408}
+  default_strategy_id: strategy.01

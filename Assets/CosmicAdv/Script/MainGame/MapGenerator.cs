@@ -13,6 +13,9 @@ public class MapGenerator : MonoBehaviour {
     public List<Obstacle_STP> _obstacleHolder = new List<Obstacle_STP>();
     public List<AnimatedObject_STP> _animatedHolder = new List<AnimatedObject_STP>();
 
+    [SerializeField]
+    public List<PoolingObject> _unitPrefabs = new List<PoolingObject>();
+
     private int perlin_offsetX, perlin_offsetY, _line_index = 0;
     private int offsetX;
     private Queue<TerrainBuilder> _terrainsHolder = new Queue<TerrainBuilder>();
@@ -74,6 +77,11 @@ public class MapGenerator : MonoBehaviour {
         int animatedSize = 15;
         foreach (AnimatedObject_STP t_object in _animatedHolder) {
             PoolManager.instance.CreatePool(t_object.ObstaclePrefab, t_object._id, obstacleSize);
+        }
+
+        foreach (PoolingObject t_object in _unitPrefabs) {
+            PoolManager.instance.CreatePool(t_object.prefab, t_object.prefab.GetInstanceID(),
+             t_object.instanceNum);
         }
 
     }
