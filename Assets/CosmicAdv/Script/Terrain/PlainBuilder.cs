@@ -16,7 +16,7 @@ namespace CA_Terrain
 					Transform g_prefab = stored_prefabs[i].transform;
 
 					if (g_prefab.name.IndexOf("Off") > 0) {
-						GameObject randomObstacle = plain_stp.FindObstacleByTag("Tree").ObstaclePrefab;
+						GameObject randomObstacle = plain_stp.FindObstacleByTag("Tree").prefab;
 						GameObject generate_obstacle = Instantiate( randomObstacle);
 						generate_obstacle.transform.SetParent(Obstacle.transform);
 						generate_obstacle.transform.position = g_prefab.transform.position + (Vector3.up*0.5f);
@@ -46,7 +46,7 @@ namespace CA_Terrain
 						runtimeObstacle.Add(generate_obstacle);
 						grids[i].isWalkable = false;
                 }
-            }	
+            }
 		}
 
 		public override void OnTerrainDestroy() {

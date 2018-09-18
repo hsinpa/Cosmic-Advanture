@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace CA_Terrain
 {
-	public abstract class Obstacle_STP : STPObject {
-		public GameObject ObstaclePrefab;
-		public ScriptableObject theme;
+	[CreateAssetMenu(fileName = "[STP]Universal", menuName = "STP/Obstacle/Universal", order = 1)]
+	public class Obstacle_STP : STPObject {
+
 	}
 }

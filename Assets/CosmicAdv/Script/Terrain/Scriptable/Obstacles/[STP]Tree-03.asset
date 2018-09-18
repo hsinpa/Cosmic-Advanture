@@ -13,5 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 20003
   _tag: Tree
-  ObstaclePrefab: {fileID: 189882, guid: ee6af68a3d2c1864ebc6cfc3be82d851, type: 2}
-  theme: {fileID: 0}
+  poolingNum: 5
+  prefab: {fileID: 189882, guid: ee6af68a3d2c1864ebc6cfc3be82d851, type: 2}

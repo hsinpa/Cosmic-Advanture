@@ -11,18 +11,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57cb3c2fb92084c9ca01cf45ac6badfa, type: 3}
   m_Name: '[STP]Theme_Basic'
   m_EditorClassIdentifier: 
-  _id: 0
-  _tag: 
-  _obstacleHolder: []
-  _animatedHolder: []
-  _unitPrefabs:
-  - instanceNum: 15
-    prefab: {fileID: 1671093062606094, guid: 9c8df84b5bcc14f54a28bfd9beedc8d2, type: 2}
-  - instanceNum: 12
-    prefab: {fileID: 1131225788966868, guid: 447e55ed974ba4e70a32fc9526480046, type: 2}
-  - instanceNum: 10
-    prefab: {fileID: 1278535032047436, guid: 1d22ab67662f543198b3c8d91da39458, type: 2}
-  - instanceNum: 8
-    prefab: {fileID: 1868912947978066, guid: ca3d371443da54e5f9a63aff6a018632, type: 2}
-  - instanceNum: 8
-    prefab: {fileID: 1994774270116616, guid: 63b614584563b45199cb9305f97175e2, type: 2}
+  _id: 9000
+  _tag: Theme
+  poolingNum: 1
+  prefab: {fileID: 0}
+  terrainPrefab:
+  - {fileID: 1671093062606094, guid: 9c8df84b5bcc14f54a28bfd9beedc8d2, type: 2}
+  - {fileID: 1131225788966868, guid: 447e55ed974ba4e70a32fc9526480046, type: 2}
+  - {fileID: 1278535032047436, guid: 1d22ab67662f543198b3c8d91da39458, type: 2}
+  stpObjectHolder:
+  - {fileID: 11400000, guid: f08cf23ce70a44552897daf231652b94, type: 2}
+  - {fileID: 11400000, guid: 0ef8bcde5c40540a2977ee4f89b4ea8f, type: 2}
+  - {fileID: 11400000, guid: 6d9e360b83ad14e76bb1b8556e797e89, type: 2}
+  - {fileID: 11400000, guid: 949ff1a554db3471891ebd8171694649, type: 2}
+  - {fileID: 11400000, guid: addfe6e0ad9314648b4510043ec76a2d, type: 2}
+  - {fileID: 11400000, guid: d02b9fdc114c14f729f01dff621b0b5f, type: 2}
+  - {fileID: 11400000, guid: bab178cc6bb964c06a356aa2e6edd0ab, type: 2}
+  - {fileID: 11400000, guid: 949ff1a554db3471891ebd8171694649, type: 2}
+  - {fileID: 11400000, guid: c83dff89a6e6f5a4baafbc6ccef7cb39, type: 2}
+  - {fileID: 11400000, guid: 614fbd9ad11872541b114b4626b2ee0e, type: 2}

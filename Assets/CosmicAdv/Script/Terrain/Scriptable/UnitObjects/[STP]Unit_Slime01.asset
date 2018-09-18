@@ -8,10 +8,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c25570760d044d448291d8ae6530783, type: 3}
-  m_Name: '[STP]Tree-01'
+  m_Script: {fileID: 11500000, guid: 4d39d09144b6f5641affe672426d902d, type: 3}
+  m_Name: '[STP]Unit_Slime01'
   m_EditorClassIdentifier: 
-  _id: 20001
-  _tag: Tree
-  poolingNum: 5
-  prefab: {fileID: 131094, guid: d93817f79a1e01242b20f7081cbfa384, type: 2}
+  _id: 0
+  _tag: 
+  poolingNum: 1
+  prefab: {fileID: 1994774270116616, guid: 63b614584563b45199cb9305f97175e2, type: 2}
+  agentBehavior: {fileID: 0}

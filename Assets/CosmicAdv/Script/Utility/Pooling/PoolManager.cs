@@ -22,6 +22,8 @@ public class PoolManager : MonoBehaviour {
 		if (!poolDictionary.ContainsKey(poolkey)) {
 			poolDictionary.Add(poolkey, new Queue<GameObject>());
 			for (int i = 0; i < p_poolsize; i++) {
+                if (poolDictionary[poolkey].Count > p_poolsize) break;
+
 				GameObject newObject = Instantiate(prefab) as GameObject;
 				newObject.transform.SetParent(this.transform);
 				newObject.SetActive(false);

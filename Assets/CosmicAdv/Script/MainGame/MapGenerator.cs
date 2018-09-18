@@ -20,18 +20,21 @@ public class MapGenerator : MonoBehaviour {
     private int offsetX;
     private Queue<TerrainBuilder> _terrainsHolder = new Queue<TerrainBuilder>();
     private GameObject _terainholder;
+    private ThemeGenerator _themeGenerator;
 
     [SerializeField]
     private List<CA_Grid[]> gridMap = new List<CA_Grid[]>();
 
     public void SetUp(GameObject p_terrain_holder) {
         _terainholder = p_terrain_holder;
+        _themeGenerator = GetComponent<ThemeGenerator>();
 
         perlin_offsetX = Random.Range(0, 20000);
         perlin_offsetY = Random.Range(0, 20000);
         CalculateGridSize();
 
-        PreparePooling();
+        _themeGenerator.GeneratePoolingObject();
+        //PreparePooling();
         PrebuildMap();
     }
 
@@ -56,34 +59,6 @@ public class MapGenerator : MonoBehaviour {
             gridMap.RemoveAt(0);
             PoolManager.instance.Destroy(eraseTerrain.gameObject);
         }
-    }
-
-
-    private void PreparePooling() {
-        //All type of terrain;
-        int terrainSize = 15;
-        foreach (GameObject t_prefab in terrainPrefab) {
-            TerrainBuilder tBuilder = t_prefab.GetComponent<TerrainBuilder>();
-            PoolManager.instance.CreatePool(t_prefab, tBuilder.terrain_stp._id, terrainSize);
-        }
-
-        int obstacleSize = 20;
-        //All type of Obstacle;
-        foreach (Obstacle_STP t_object in _obstacleHolder) {
-            PoolManager.instance.CreatePool(t_object.ObstaclePrefab, t_object._id, obstacleSize);
-        }
-
-        //All type of Coin;
-        int animatedSize = 15;
-        foreach (AnimatedObject_STP t_object in _animatedHolder) {
-            PoolManager.instance.CreatePool(t_object.ObstaclePrefab, t_object._id, obstacleSize);
-        }
-
-        foreach (PoolingObject t_object in _unitPrefabs) {
-            PoolManager.instance.CreatePool(t_object.prefab, t_object.prefab.GetInstanceID(),
-             t_object.instanceNum);
-        }
-
     }
 
     private void PrebuildMap() {

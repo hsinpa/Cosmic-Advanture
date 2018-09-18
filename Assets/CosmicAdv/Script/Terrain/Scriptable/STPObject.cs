@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace CA_Terrain
 {
-	public class STPObject : ScriptableObject {
+	public abstract class STPObject : ScriptableObject {
 		public int _id;
 		public string _tag;
-		public int poolingNum = 5;
+		public int poolingNum = 1;
+        public GameObject prefab;
 	}
 }

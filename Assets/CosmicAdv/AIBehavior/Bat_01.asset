@@ -15,7 +15,7 @@ MonoBehaviour:
   - {fileID: 114989968559582782}
   - {fileID: 114625564681358408}
   - {fileID: 114958213548330108}
-  agentNode: {fileID: 114989968559582782}
+  agentNode: {fileID: 0}
 --- !u!114 &114625564681358408
 MonoBehaviour:
   m_ObjectHideFlags: 0

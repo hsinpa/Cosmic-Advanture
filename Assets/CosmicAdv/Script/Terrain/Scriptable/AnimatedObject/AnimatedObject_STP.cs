@@ -6,7 +6,6 @@ namespace CA_Terrain
 {
 	[CreateAssetMenu(fileName = "[STP]AnimatedObject", menuName = "STP/AnimatedObject/Vehicle", order = 2)]
 	public class AnimatedObject_STP : STPObject {
-		public GameObject ObstaclePrefab;
 		public Material MaterialPrefab;
 		public Color[] colorSet;
 

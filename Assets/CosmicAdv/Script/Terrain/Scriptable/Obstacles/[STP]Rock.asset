@@ -13,5 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 20004
   _tag: Rock
-  ObstaclePrefab: {fileID: 177750, guid: 5b20f7f96ea80dc4cbd7199fbb4d4d3e, type: 2}
-  theme: {fileID: 0}
+  poolingNum: 3
+  prefab: {fileID: 177750, guid: 5b20f7f96ea80dc4cbd7199fbb4d4d3e, type: 2}
