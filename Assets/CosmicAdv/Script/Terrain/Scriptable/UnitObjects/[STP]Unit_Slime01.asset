@@ -11,8 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d39d09144b6f5641affe672426d902d, type: 3}
   m_Name: '[STP]Unit_Slime01'
   m_EditorClassIdentifier: 
-  _id: 0
+  _id: 40002
   _tag: 
-  poolingNum: 1
+  poolingNum: 15
   prefab: {fileID: 1994774270116616, guid: 63b614584563b45199cb9305f97175e2, type: 2}
-  agentBehavior: {fileID: 0}
+  agentBehavior: {fileID: 11400000, guid: 57387f92e52624b499970ca08a2b7e6e, type: 2}

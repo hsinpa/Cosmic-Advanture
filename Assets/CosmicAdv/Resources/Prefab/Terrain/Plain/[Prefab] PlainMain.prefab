@@ -2461,7 +2461,7 @@ MonoBehaviour:
   terrain_stp: {fileID: 11400000, guid: 0825a0ae31e7e4151b91c6735588a6c7, type: 2}
   total_size: 20
   activate_size: 10
-  obstacleDistribution: 0.15
+  obstacleDistribution: 0.1
   stored_prefabs:
   - {fileID: 1142522878295088}
   - {fileID: 1360524829424146}
@@ -2483,6 +2483,3 @@ MonoBehaviour:
   - {fileID: 1486361541735722}
   - {fileID: 1909317993198208}
   - {fileID: 1884783214324062}
-  Obstacle: {fileID: 1418406680888872}
-  Terrains: {fileID: 1742259922172412}
-  AnimatedObject: {fileID: 1569914481619212}

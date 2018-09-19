@@ -54,6 +54,8 @@ namespace CA_Terrain
 			int obstacleNum = runtimeObstacle.Count;
 			for (int i = 0; i < obstacleNum; i++)
 				PoolManager.instance.Destroy(runtimeObstacle[i]);
+			
+			runtimeObstacle.Clear();
 		}
 	}
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 30001
   _tag: Vehicle
-  poolingNum: 3
+  poolingNum: 15
   prefab: {fileID: 1542788413190944, guid: daff8521412494fbd9fd839a7a96569c, type: 2}
   MaterialPrefab: {fileID: 2100000, guid: 1315d190bb6c2415081788b0b3ace4ed, type: 2}
   colorSet: []

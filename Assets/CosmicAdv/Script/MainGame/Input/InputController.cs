@@ -21,7 +21,7 @@ public class InputController : Observer {
             _moveDir = value;
         }
     }
-    Vector3 _moveDir ;
+    Vector3 _moveDir;
 
 	// InputManager _inputManager;
 
@@ -70,7 +70,10 @@ public class InputController : Observer {
             if (isMove && _moveDir == Vector3.forward && farTopZPosition < _playerUnit.transform.position.z) {
                 farTopZPosition = (int)(_playerUnit.transform.position.z);
                 
-                _map.AssignSRandomTerrain();
+                MainApp.Instance.subject.notify(EventFlag.Game.PlayerMove);
+                //Move Ai Agent
+                // OnNotify();
+
             }
 
         }

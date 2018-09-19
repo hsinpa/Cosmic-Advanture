@@ -25,6 +25,7 @@ public class PoolManager : MonoBehaviour {
                 if (poolDictionary[poolkey].Count > p_poolsize) break;
 
 				GameObject newObject = Instantiate(prefab) as GameObject;
+				newObject.name = newObject.name +"-"+i;
 				newObject.transform.SetParent(this.transform);
 				newObject.SetActive(false);
 				poolDictionary[poolkey].Enqueue(newObject);
@@ -35,8 +36,8 @@ public class PoolManager : MonoBehaviour {
 	public GameObject ReuseObject(int poolKey) {
 		if (poolDictionary.ContainsKey(poolKey)) {
 			GameObject objectToReuse = poolDictionary[poolKey].Dequeue();
+			
 			poolDictionary[poolKey].Enqueue( objectToReuse );
-
 			return objectToReuse;
 		}
 		return null;

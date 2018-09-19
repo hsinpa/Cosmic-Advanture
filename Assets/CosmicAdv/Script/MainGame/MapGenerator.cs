@@ -10,11 +10,6 @@ public class MapGenerator : MonoBehaviour {
     public static Vector2 gridSize;
 
     public List<GameObject> terrainPrefab = new List<GameObject>();
-    public List<Obstacle_STP> _obstacleHolder = new List<Obstacle_STP>();
-    public List<AnimatedObject_STP> _animatedHolder = new List<AnimatedObject_STP>();
-
-    [SerializeField]
-    public List<PoolingObject> _unitPrefabs = new List<PoolingObject>();
 
     private int perlin_offsetX, perlin_offsetY, _line_index = 0;
     private int offsetX;
@@ -48,9 +43,9 @@ public class MapGenerator : MonoBehaviour {
         }
     }
 
-    public void AssignSRandomTerrain() {
+    public TerrainBuilder AssignSRandomTerrain() {
         float noiseValue = Mathf.PerlinNoise(_line_index * slopeRate + perlin_offsetX, perlin_offsetY);
-        IdentifyTerrainPiece(noiseValue);
+        TerrainBuilder newTerrain = IdentifyTerrainPiece(noiseValue);
 
         //If terrainholder reach its maximum capacity
         if (_terrainsHolder.Count > maxTerrainCapacity) {
@@ -59,39 +54,42 @@ public class MapGenerator : MonoBehaviour {
             gridMap.RemoveAt(0);
             PoolManager.instance.Destroy(eraseTerrain.gameObject);
         }
+        
+        return newTerrain;
     }
 
     private void PrebuildMap() {
         //prebuild the first three tiles as plain
-        int prebuildNum = 3;
+        int prebuildNum = 5;
         for (int p = 0; p < prebuildNum; p++) {
             InstantiateTerrain(PoolingID.TerrainPlain);
         }
 
-        for (int i = 0; i < 16 - prebuildNum; i++) {
+        for (int i = 0; i < 14 - prebuildNum; i++) {
             AssignSRandomTerrain();
         }
     }
 
-    private void IdentifyTerrainPiece(float p_noiseValue) {
+    private TerrainBuilder IdentifyTerrainPiece(float p_noiseValue) {
         //Hard code now
         // Debug.Log("Noise Value " + p_noiseValue);
 
         //Plain
-        if (p_noiseValue > 0.45f && p_noiseValue < 0.5f) {
-            InstantiateTerrain(PoolingID.TerrainPlain);
-            return;
+        if (p_noiseValue > 0.35f && p_noiseValue < 0.6f) {
+            return InstantiateTerrain(PoolingID.TerrainPlain);
         }
 
         //Terrain
-        if (p_noiseValue >= 0.5f) {
-            InstantiateTerrain(PoolingID.TerrainRoad);
+        if (p_noiseValue >= 0.6f) {
+            return InstantiateTerrain(PoolingID.TerrainRoad);
         }
 
         //Train
-        if (p_noiseValue <= 0.45f) {
-            InstantiateTerrain(PoolingID.TerrainTrain);
+        if (p_noiseValue <= 0.35f) {
+            return InstantiateTerrain(PoolingID.TerrainTrain);
         }
+
+        return null;
     }
 
     private TerrainBuilder InstantiateTerrain(int object_id) {
@@ -118,12 +116,6 @@ public class MapGenerator : MonoBehaviour {
     private CA_Grid FindGridByWorldPosition(Vector3 p_position) {
         //Find Y
         int Y =  Mathf.RoundToInt(gridMap.Count - (_line_index - p_position.z));
-        // Debug.Log("p_position.z " + p_position.z );
-        // Debug.Log("_line_index " + (_line_index - p_position.z) );
-
-        // float percentage = ((float)gridMap.Count /  _line_index);
-        // Debug.Log("Y " +  (gridMap.Count - (_line_index - p_position.z)));
-
 
         //Find X
         int X = Mathf.RoundToInt(p_position.x);
@@ -132,9 +124,6 @@ public class MapGenerator : MonoBehaviour {
             //Return unwalkable if pos not even exist in array
             return new CA_Grid(Vector2.zero, false);
         else {
-            //Debug.Log("Grid Pos " + gridMap[Y][X].position);
-            //Debug.Log("Grid Index Y:" + Y + ", X:" + X);
-
             return gridMap[Y][X];
         }
     }

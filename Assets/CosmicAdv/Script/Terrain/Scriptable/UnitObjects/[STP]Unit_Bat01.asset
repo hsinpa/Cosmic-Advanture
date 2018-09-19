@@ -13,6 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 40001
   _tag: Unit
-  poolingNum: 8
+  poolingNum: 15
   prefab: {fileID: 1868912947978066, guid: ca3d371443da54e5f9a63aff6a018632, type: 2}
   agentBehavior: {fileID: 11400000, guid: 7add03a01ae354b23afa4660cfc17e8b, type: 2}

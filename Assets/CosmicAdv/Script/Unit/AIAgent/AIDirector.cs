@@ -27,6 +27,7 @@ public class AIDirector : Observer
 
         switch (p_event)
         {
+
         }
     }
 
@@ -68,7 +69,7 @@ public class AIDirector : Observer
 
             if (g_prefab.name.IndexOf("On") > 0 && p_terrain.grids[i].isWalkable)
             {
-                if (UtilityMethod.PercentageGame(0.2f) && unitSTPlist.Count > 0)
+                if (UtilityMethod.PercentageGame(0.1f) && unitSTPlist.Count > 0)
                 {
                     Unit_STP unitSTP = unitSTPlist[Random.Range(0, unitSTPlist.Count)];
 

@@ -17,6 +17,6 @@ MonoBehaviour:
   DisableTerrainPrefab: {fileID: 1184544802735402, guid: 8358f2536b2b844279ed9c91bc7c7492,
     type: 2}
   obstables:
-  - {fileID: 11400000, guid: 949ff1a554db3471891ebd8171694649, type: 2}
-  - {fileID: 11400000, guid: d02b9fdc114c14f729f01dff621b0b5f, type: 2}
-  - {fileID: 11400000, guid: bab178cc6bb964c06a356aa2e6edd0ab, type: 2}
+  - {fileID: 11400000, guid: feb230027de4145a29beff0aa5007db7, type: 2}
+  - {fileID: 11400000, guid: b6503a4125e7d4827933f2165ee13eec, type: 2}
+  - {fileID: 11400000, guid: 72902e333b3254527a5a59d1e9e5ec25, type: 2}
