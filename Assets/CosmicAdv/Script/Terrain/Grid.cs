@@ -11,10 +11,13 @@ namespace  CA_Terrain
 		//public TerrainBuilder terrainRow;
 		public bool isWalkable;
 
+        public BaseUnit occupy_unit; 
+
         public CA_Grid(Vector2 position, bool isWalkable)
         {
             this.position = position;
             this.isWalkable = isWalkable;
+            this.occupy_unit = null;
         }
     }
 }

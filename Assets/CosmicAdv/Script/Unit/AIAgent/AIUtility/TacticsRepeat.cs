@@ -20,19 +20,15 @@ namespace _AIAgent
 
 		public override Vector3 Planning() {
 			//If no pattern or can't move yet
-			if (repeatNode.customPattern.Length <= 0 || !IsAvilableToTakeAction()) 
-				return Vector3.zero;
+			// if (repeatNode.customPattern.Length <= 0 || !IsAvilableToTakeAction()) 
+			// 	return Vector3.zero;
 			
 			if (repeatNode.random) {
 				return GetRandomDir();
 			} else {
 				int patternIndex = (movePatternIndex + 1) % repeatNode.customPattern.Length;
-				// bool moveFeasibility = true;
-				// BaseUnit.MoveDir dir = new BaseUnit.MoveDir(testMovePattern[patternIndex], moveFeasibility);
-				//if (_baseUnit.Move(dir)) {
 					movePatternIndex = patternIndex;
-					return testMovePattern[patternIndex];
-				//}
+					return repeatNode.customPattern[patternIndex];
 			}
 		}
 

@@ -9,12 +9,19 @@ namespace _AIAgent
 		private AIAgent aIAgent;
 
 		private int period_left_to_act;
-		
+		public float period_to_act {
+			get {
+				return tacticsNode.responseTime;
+			}
+		}
+
 		public TacticsHandler(AIAgent p_aIAgent, TacticsNode p_tacticsNode) {
 			aIAgent = p_aIAgent;
 			tacticsNode = p_tacticsNode;
 			period_left_to_act = p_tacticsNode.responseTime;
 		}
+
+		
 
 		public abstract Vector3 Planning();
 

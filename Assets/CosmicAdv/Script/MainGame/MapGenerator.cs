@@ -128,10 +128,28 @@ public class MapGenerator : MonoBehaviour {
         }
     }
 
-    public bool IsPosAvailable(Vector3 p_position, Vector3 p_direction) {
+    public CA_Grid IsPosAvailable(Vector3 p_position, Vector3 p_direction) {
         Vector3 aheadPosition = p_position + p_direction;
         CA_Grid caGrid = FindGridByWorldPosition(aheadPosition);
-        return caGrid.isWalkable;
+        return caGrid;
+    }
+
+    public bool UpdateGridInfo(Vector3 p_world_position, BaseUnit p_unit) {
+        CA_Grid newGrid = FindGridByWorldPosition(p_world_position);
+        CA_Grid originalGrid = FindGridByWorldPosition(p_unit.transform.position);
+        
+        originalGrid.isWalkable = true;
+        originalGrid.occupy_unit = null;
+
+        newGrid.isWalkable = false;
+        newGrid.occupy_unit = p_unit;
+
+        return false;
+    }
+
+    public BaseUnit GetUnitInGrid(Vector3 p_world_position) {
+        CA_Grid caGrid = FindGridByWorldPosition(p_world_position);
+        return caGrid.occupy_unit;
     }
 
 	#endregion

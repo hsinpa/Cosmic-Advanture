@@ -19,6 +19,10 @@ public class PoolingID {
 	public const int ObstacleItems = 20001;
 }
 
+public enum TeamLabel {
+	A = 0, B, C, D, None
+}
+
 public class EventFlag {
 	public class Game {
 		public const string SetUp = "game.setup@event";
@@ -41,5 +45,5 @@ public class EventFlag {
 	public class AIEvent {
 		public const string LINK = "LINK";
 	}
-	
+		
 }

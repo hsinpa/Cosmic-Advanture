@@ -32,8 +32,7 @@ public class MapController : Observer {
 
             case EventFlag.Game.PlayerMove : {
                 CA_Terrain.TerrainBuilder terrainBuilder = _mapGeneration.AssignSRandomTerrain();
-                //_aiDirector.AssignAgentsInSingleRow(terrainBuilder);
-                // _aiDirector.ExecuteAgentPlanning();
+                _aiDirector.AssignAgentsInSingleRow(terrainBuilder);
             };
             break;
         }
@@ -48,7 +47,7 @@ public class MapController : Observer {
 		_mapGeneration.SetUp(obstacleHolderObject);
 
         List<CA_Terrain.Unit_STP> unitsSTP = _themeGeneration.GetObjectByType<CA_Terrain.Unit_STP>();
-        _aiDirector.SetUp(unitsSTP, unitHolderObject);
+        _aiDirector.SetUp(unitsSTP, unitHolderObject, _mapGeneration);
         _inputController.SetUp(baseUnit, _mapGeneration);
 
         _camera.SetUp(baseUnit);

@@ -62,7 +62,7 @@ public class InputController : Observer {
 
 		if (_input.IsRelease()) {
 
-            bool isMove = _map.IsPosAvailable(_playerUnit.transform.position, _moveDir);
+            bool isMove = _map.IsPosAvailable(_playerUnit.transform.position, _moveDir).isWalkable;
             BaseUnit.MoveDir moveDirHolder = new BaseUnit.MoveDir(_moveDir, isMove);
             isMove = _playerUnit.Move(moveDirHolder);
 

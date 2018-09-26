@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using _AIAgent;
 
-[RequireComponent(typeof(BaseUnit))]
+[RequireComponent(typeof(BaseUnit), typeof(BaseStat))]
 public class AIAgent : MonoBehaviour {
 	public 	BaseUnit baseUnit {
 		get {
@@ -16,10 +16,14 @@ public class AIAgent : MonoBehaviour {
 	private TacticsHandler tacticsHandler;
 	private EventHandler eventHandler;
 	private StrategyNode currentStrategy;
+	private MapGenerator _map;
 
 	public AIAgentChart AIAgentChart;
 
-	public bool SetUp() {
+	private float _time_record;
+
+	public bool SetUp(MapGenerator p_map) {
+		_map = p_map;
 		_baseUnit = GetComponent<BaseUnit>();
 		_baseUnit.SetUp();
 
@@ -30,6 +34,8 @@ public class AIAgent : MonoBehaviour {
 		if (validAIAgent) {
 			agentBaseNode = AIAgentChart.agentNode;
 			SetStrategy(agentBaseNode.GetDefaultStrategy());
+
+			_time_record = Time.time + tacticsHandler.period_to_act;
 		}
 
 		return validAIAgent;
@@ -57,17 +63,23 @@ public class AIAgent : MonoBehaviour {
 		eventHandler.SetUp(currentStrategy.eventNodes);
 	}
 
-	public void Execute() {
-		if (tacticsHandler == null) return;
+	public void Execute() {	
+
+
+		if (tacticsHandler == null || Time.time < _time_record) return;
 
 		Vector3 moveDirection = tacticsHandler.Planning();
+		// CA_Terrain.CA_Grid grid = _map.IsPosAvailable(transform.position, moveDirection);
+		// bool isMove = grid.isWalkable;
 		bool moveFeasibility = (moveDirection != Vector3.zero);
-
 		BaseUnit.MoveDir dir = new BaseUnit.MoveDir(moveDirection, moveFeasibility);
 		if (!_baseUnit.Move(dir)) {
-			Debug.Log("No Movement is make");
+			//Debug.Log("No Movement is make");
 			// Notify(EventFlag.AIAgent.MeetInline);
 		}
+
+		_time_record = Time.time + tacticsHandler.period_to_act;
+
 	}
 	
 }

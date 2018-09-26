@@ -16,6 +16,7 @@ namespace _AIAgent
 
         [ContextMenu("Save")]
         private void SaveRecord() {
+            Debug.Log(this.name);
             agentNode = NodeReader.Parse(this);
         }
 

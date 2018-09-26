@@ -15,7 +15,7 @@ MonoBehaviour:
   - {fileID: 114989968559582782}
   - {fileID: 114625564681358408}
   - {fileID: 114958213548330108}
-  agentNode: {fileID: 0}
+  agentNode: {fileID: 114989968559582782}
 --- !u!114 &114625564681358408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,9 +68,7 @@ MonoBehaviour:
       _dynamic: 0
   id: strategy.01
   tacticsNode: {fileID: 114958213548330108}
-  eventNodes:
-  - {fileID: 0}
-  - {fileID: 0}
+  eventNodes: []
   node: {fileID: 0}
 --- !u!114 &114958213548330108
 MonoBehaviour:
@@ -138,6 +136,5 @@ MonoBehaviour:
       _connectionType: 0
       _dynamic: 0
   strategies:
-  - {fileID: 0}
   - {fileID: 114625564681358408}
   default_strategy_id: strategy.01

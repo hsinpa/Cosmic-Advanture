@@ -25,7 +25,8 @@ GameObject:
   - component: {fileID: 114916138063123082}
   - component: {fileID: 54030584836472050}
   - component: {fileID: 114382153055812066}
-  m_Layer: 0
+  - component: {fileID: 114563434525198378}
+  m_Layer: 9
   m_Name: '[Prefab] Slime'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +97,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -126,6 +127,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AIAgentChart: {fileID: 11400000, guid: 57387f92e52624b499970ca08a2b7e6e, type: 2}
+--- !u!114 &114563434525198378
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1994774270116616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4e5d346789864c81b15e502dff26702, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hp: 2
+  _defense: 0
+  team_label: 1
+  controllable: 0
 --- !u!114 &114916138063123082
 MonoBehaviour:
   m_ObjectHideFlags: 1

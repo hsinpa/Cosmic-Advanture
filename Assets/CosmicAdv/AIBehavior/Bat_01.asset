@@ -15,7 +15,7 @@ MonoBehaviour:
   - {fileID: 114989968559582782}
   - {fileID: 114625564681358408}
   - {fileID: 114958213548330108}
-  agentNode: {fileID: 0}
+  agentNode: {fileID: 114989968559582782}
 --- !u!114 &114625564681358408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,8 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7aaafa866ee444b7808d8f3a2a74f7e, type: 3}
   m_Name: AgentBaseNode
   m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -280, y: 312}
+  graph: {fileID: 11400000, guid: 57387f92e52624b499970ca08a2b7e6e, type: 2}
+  position: {x: -264, y: 232}
   ports:
     keys:
     - strategies

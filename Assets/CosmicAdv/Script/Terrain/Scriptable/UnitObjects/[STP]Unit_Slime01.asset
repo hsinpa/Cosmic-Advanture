@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: '[STP]Unit_Slime01'
   m_EditorClassIdentifier: 
   _id: 40002
-  _tag: 
+  _tag: Unit
   poolingNum: 15
   prefab: {fileID: 1994774270116616, guid: 63b614584563b45199cb9305f97175e2, type: 2}
   agentBehavior: {fileID: 11400000, guid: 57387f92e52624b499970ca08a2b7e6e, type: 2}

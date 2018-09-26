@@ -27,7 +27,6 @@ namespace CA_Terrain
 			}
 		}
 
-
 		private void GenerateRandomObstacle() {
 			Plain_STP plain_stp = (Plain_STP) terrain_stp;
 

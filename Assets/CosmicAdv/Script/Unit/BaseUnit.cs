@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class BaseUnit : MonoBehaviour {
+public class BaseUnit : MapComponent {
 
-    public BaseStat baseStat;
+    private BaseStat baseStat;
 
     public float jumpForce = 100;
 
@@ -19,7 +19,6 @@ public class BaseUnit : MonoBehaviour {
     }
 
     //public float rotationOffset;
-
     Rigidbody rb;
 
     private Vector3 curPosition;
@@ -33,12 +32,13 @@ public class BaseUnit : MonoBehaviour {
 
     public void SetUp()
     {
+        baseStat = GetComponent<BaseStat>();
         rb = GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
         ResetPosition();
 
         initialYPos = transform.position.y;
     }
-
 
     void Update()
     {
@@ -54,6 +54,7 @@ public class BaseUnit : MonoBehaviour {
                     targetPos = curPosition + nextDir.direction;
                     targetPos.y = unitPos.y;
             float dist = Vector3.Distance(unitPos, targetPos);
+
             if (dist < 0.001f)
             {
                 //Debug.Log("UnitPos" + unitPos +", TargetPos" + targetPos);
@@ -68,7 +69,6 @@ public class BaseUnit : MonoBehaviour {
 
             transform.localScale = new Vector3(1, lerpYScale, 1);
         }
-
     }
 
     private void ResetPosition() {
@@ -109,6 +109,15 @@ public class BaseUnit : MonoBehaviour {
         return true;
     }
 
+    public void OnAttack(BaseUnit p_attacker) {
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+    }
+
     public struct MoveDir {
         public Vector3 direction;
         public bool enable;
@@ -119,5 +128,4 @@ public class BaseUnit : MonoBehaviour {
             this.enable = enable;
         }
     }
-
 }
