@@ -43,8 +43,8 @@ namespace CA_Terrain
 						generate_obstacle.SetActive(true);
 						
 						runtimeObstacle.Add(generate_obstacle);
-						grids[i].isWalkable = false;
-                }
+						grids[i].mapComponent = generate_obstacle.GetComponent<ObstacleComponent>();
+                	}
             }
 		}
 

@@ -64,8 +64,6 @@ public class AIAgent : MonoBehaviour {
 	}
 
 	public void Execute() {	
-
-
 		if (tacticsHandler == null || Time.time < _time_record) return;
 
 		Vector3 moveDirection = tacticsHandler.Planning();
@@ -76,10 +74,11 @@ public class AIAgent : MonoBehaviour {
 		if (!_baseUnit.Move(dir)) {
 			//Debug.Log("No Movement is make");
 			// Notify(EventFlag.AIAgent.MeetInline);
+		} else {
+			_map.UpdateGridInfo(transform.position + moveDirection, _baseUnit);
 		}
 
 		_time_record = Time.time + tacticsHandler.period_to_act;
-
 	}
 	
 }

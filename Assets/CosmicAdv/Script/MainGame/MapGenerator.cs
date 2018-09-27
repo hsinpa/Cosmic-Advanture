@@ -122,7 +122,7 @@ public class MapGenerator : MonoBehaviour {
 
         if (X < 0 || Y < 0 || Y >= gridMap.Count || X >= gridMap[Y].Length)
             //Return unwalkable if pos not even exist in array
-            return new CA_Grid(Vector2.zero, false);
+            return new CA_Grid(Vector2.zero);
         else {
             return gridMap[Y][X];
         }
@@ -137,19 +137,27 @@ public class MapGenerator : MonoBehaviour {
     public bool UpdateGridInfo(Vector3 p_world_position, BaseUnit p_unit) {
         CA_Grid newGrid = FindGridByWorldPosition(p_world_position);
         CA_Grid originalGrid = FindGridByWorldPosition(p_unit.transform.position);
-        
-        originalGrid.isWalkable = true;
-        originalGrid.occupy_unit = null;
+        originalGrid.mapComponent = null;
 
-        newGrid.isWalkable = false;
-        newGrid.occupy_unit = p_unit;
+        //Pass in a false position, simply override originalGrid
+        if (p_world_position == Vector3.zero) return true;
+        //Couldn't find newGrid
+        if (newGrid.position == Vector2.zero) return false;
 
-        return false;
+        //Debug.Log("Change pos unit " + p_unit.name);
+        newGrid.mapComponent = p_unit;
+
+
+        return true;
     }
 
-    public BaseUnit GetUnitInGrid(Vector3 p_world_position) {
+    public T GetUnitInGrid<T>(Vector3 p_world_position) where T : MapComponent {
         CA_Grid caGrid = FindGridByWorldPosition(p_world_position);
-        return caGrid.occupy_unit;
+        if (caGrid.mapComponent == null || caGrid.mapComponent.GetType() != typeof(ObstacleComponent) ) {
+            return default(T);
+        }
+
+        return (T)caGrid.mapComponent;
     }
 
 	#endregion

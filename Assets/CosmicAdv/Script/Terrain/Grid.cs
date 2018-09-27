@@ -5,19 +5,22 @@ using UnityEngine;
 namespace  CA_Terrain
 {
     [SerializeField]
-	public struct CA_Grid {
+	public class CA_Grid {
 		public Vector2 position;
 		//public GameObject p_grid;
 		//public TerrainBuilder terrainRow;
-		public bool isWalkable;
+		public bool isWalkable {
+            get {
+                return (mapComponent == null);
+            }
+        } 
 
-        public BaseUnit occupy_unit; 
+        public MapComponent mapComponent;
 
-        public CA_Grid(Vector2 position, bool isWalkable)
+        public CA_Grid(Vector2 position)
         {
             this.position = position;
-            this.isWalkable = isWalkable;
-            this.occupy_unit = null;
+            this.mapComponent = null;
         }
     }
 }

@@ -10,6 +10,7 @@ GameObject:
   - component: {fileID: 419742}
   - component: {fileID: 3313570}
   - component: {fileID: 2305872}
+  - component: {fileID: 114660747195547522}
   m_Layer: 0
   m_Name: SM_Env_Tree_01
   m_TagString: Untagged
@@ -83,3 +84,14 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 189882}
   m_IsPrefabParent: 1
+--- !u!114 &114660747195547522
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f07d82b0b0f9c47ebbb0a88a83551335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

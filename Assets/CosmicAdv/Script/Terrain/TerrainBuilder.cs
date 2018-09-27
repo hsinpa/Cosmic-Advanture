@@ -44,7 +44,7 @@ namespace  CA_Terrain
 			for (int i = 0 ; i < index_offset; i++) {
                 int offsetIndex = i + activateStartXPos;
 				Vector2 gridPos = new Vector2(stored_prefabs[offsetIndex].transform.position.x, stored_prefabs[offsetIndex].transform.position.z);
-				grids[i] = new CA_Grid(gridPos, true);
+				grids[i] = new CA_Grid(gridPos);
             }
             return grids;
 		}
