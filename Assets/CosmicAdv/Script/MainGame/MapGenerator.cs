@@ -54,7 +54,7 @@ public class MapGenerator : MonoBehaviour {
             gridMap.RemoveAt(0);
             PoolManager.instance.Destroy(eraseTerrain.gameObject);
         }
-        
+
         return newTerrain;
     }
 
@@ -115,7 +115,7 @@ public class MapGenerator : MonoBehaviour {
     #region Grid Panel
     private CA_Grid FindGridByWorldPosition(Vector3 p_position) {
         //Find Y
-        int Y =  Mathf.RoundToInt(gridMap.Count - (_line_index - p_position.z));
+        int Y = Mathf.RoundToInt(gridMap.Count - (_line_index - p_position.z));
 
         //Find X
         int X = Mathf.RoundToInt(p_position.x);
@@ -134,21 +134,28 @@ public class MapGenerator : MonoBehaviour {
         return caGrid;
     }
 
-    public bool UpdateGridInfo(Vector3 p_world_position, BaseUnit p_unit) {
-        CA_Grid newGrid = FindGridByWorldPosition(p_world_position);
+    public bool UpdateGridInfo(Vector3 p_target_position, BaseUnit p_unit) {
         CA_Grid originalGrid = FindGridByWorldPosition(p_unit.transform.position);
-        originalGrid.mapComponent = null;
+
+        return UpdateGridInfo(p_target_position, originalGrid, p_unit);
+    }
+
+    public bool UpdateGridInfo(Vector3 p_target_position, CA_Grid original_grid, BaseUnit p_unit) {
+        if (original_grid == null) return false;
+
+        CA_Grid newGrid = FindGridByWorldPosition(p_target_position);
+        original_grid.mapComponent = null;
 
         //Pass in a false position, simply override originalGrid
-        if (p_world_position == Vector3.zero) return true;
+        if (newGrid == null) return true;
         //Couldn't find newGrid
         if (newGrid.position == Vector2.zero) return false;
 
         //Debug.Log("Change pos unit " + p_unit.name);
         newGrid.mapComponent = p_unit;
 
-
         return true;
+
     }
 
     public T GetUnitInGrid<T>(Vector3 p_world_position) where T : MapComponent {

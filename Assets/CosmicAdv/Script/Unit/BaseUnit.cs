@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BaseUnit : MapComponent {
 
-    private BaseStat baseStat;
+    public BaseStat baseStat;
 
     public float jumpForce = 100;
 
@@ -86,36 +86,75 @@ public class BaseUnit : MapComponent {
         isHolding = true;
     }
 
-	public virtual bool Move(MoveDir p_direction) {
+    public void ProcessMoveAction(CA_Terrain.CA_Grid p_next_grid, Vector3 p_direction, System.Action<bool> p_callback) {
+        MoveDir moveDir = new MoveDir(p_direction, p_next_grid.isWalkable);
+        MoveState isMove = Move(moveDir);
 
+        //Check if mapcomponent is baseunit, if yes and in different team, then try to attack it
+        if (isMove.state == MoveState.State.Fail_PosInvalid)
+        {
+            if (p_next_grid.mapComponent.GetType() == typeof(BaseUnit)) {
+                BaseUnit targetUnit = (BaseUnit)p_next_grid.mapComponent;
+                if (targetUnit.baseStat.team_label != baseStat.team_label)
+                {
+                    MainApp.Instance.subject.notify(EventFlag.Game.UnitAttack, this, targetUnit);   
+                }
+            }
+        }
+
+        p_callback?.Invoke(isMove.isSuccessful);
+    }
+
+    private MoveState Move(MoveDir p_direction) {
         //Currently moving
         isHolding = false;
 
 
         if (!isLanding || Time.time < moveTimeStamp ||
             (p_direction.direction == Vector3.zero && !p_direction.enable))
-            return false;
+            return new MoveState(false, MoveState.State.Fail_NotReady);
 
         nextDir = p_direction;
         if (!p_direction.enable) {
             // transform.localScale = Vector3.one;
-            return false;
+            return new MoveState(false, MoveState.State.Fail_PosInvalid);
         }
 
         rb.AddForce(0, jumpForce, 0);
         isLanding = false;
         moveTimeStamp = Time.time + moveTimePeroid;
 
-        return true;
+        return new MoveState(true, MoveState.State.Success);
     }
 
     public void OnAttack(BaseUnit p_attacker) {
-
+        baseStat.hp -= p_attacker.baseStat.attack;
+        if (baseStat.hp <= 0) {
+            MainApp.Instance.subject.notify(EventFlag.Game.UnitDestroy, this);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
 
+    }
+
+    private struct MoveState {
+        public bool isSuccessful;
+        public State state;
+
+
+        public MoveState(bool successful, State state)
+        {
+            this.isSuccessful = successful;
+            this.state = state;
+        }
+
+        public enum State {
+            Success,
+            Fail_NotReady,
+            Fail_PosInvalid
+        }
     }
 
     public struct MoveDir {

@@ -7,13 +7,13 @@ public class BaseStat : MonoBehaviour{
 		get {
 			return _hp;
 		} set {
-			_hp = value;
+            _hp = value;
 		}
 	}
 	[SerializeField]
 	private float _hp;
 
-	public float defense {
+    public float defense {
 		get {
 			return _defense;
 		} set {
@@ -23,6 +23,19 @@ public class BaseStat : MonoBehaviour{
 	[SerializeField]
 	private float _defense;
 
-	public TeamLabel team_label;
+
+    public float attack
+    {
+        get
+        {
+            return _attack;
+        }
+    }
+    [SerializeField]
+    private float _attack;
+
+
+    public TeamLabel team_label;
 	public bool controllable;
+
 }

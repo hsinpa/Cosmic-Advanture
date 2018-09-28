@@ -63,22 +63,24 @@ public class InputController : Observer {
 		if (_input.IsRelease()) {
 
             CA_Terrain.CA_Grid grid = _map.IsPosAvailable(_playerUnit.transform.position, _moveDir);
-            bool isMove = grid.isWalkable;
-            BaseUnit.MoveDir moveDirHolder = new BaseUnit.MoveDir(_moveDir, isMove);
-            isMove = _playerUnit.Move(moveDirHolder);
 
-            //Generate new Terrain
-            if (isMove && _moveDir == Vector3.forward && farTopZPosition < _playerUnit.transform.position.z) {
-                farTopZPosition = (int)(_playerUnit.transform.position.z);
-                MainApp.Instance.subject.notify(EventFlag.Game.PlayerMove);
-                //Move Ai Agent
-                // OnNotify();
-            }
+            _playerUnit.ProcessMoveAction(grid, _moveDir, (bool isMove) =>
+            {
+                //Generate new Terrain
+                if (isMove)
+                {
+                    _map.UpdateGridInfo(_playerUnit.transform.position + _moveDir, _playerUnit);
 
-            _map.UpdateGridInfo(_playerUnit.transform.position + _moveDir, _playerUnit);
-            Debug.Log("Grid "  +grid.mapComponent.name);
-
-
+                    //If move forward in z-Axis
+                    if (_moveDir == Vector3.forward && farTopZPosition < _playerUnit.transform.position.z)
+                    {
+                        farTopZPosition = (int)(_playerUnit.transform.position.z);
+                        MainApp.Instance.subject.notify(EventFlag.Game.PlayerMove);
+                        //Move Ai Agent
+                        // OnNotify();
+                    }
+                }
+            });
         }
     }
 

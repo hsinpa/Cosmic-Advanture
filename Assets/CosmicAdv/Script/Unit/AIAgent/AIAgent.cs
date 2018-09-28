@@ -63,22 +63,26 @@ public class AIAgent : MonoBehaviour {
 		eventHandler.SetUp(currentStrategy.eventNodes);
 	}
 
-	public void Execute() {	
-		if (tacticsHandler == null || Time.time < _time_record) return;
+	public bool Execute() {	
+		if (tacticsHandler == null || Time.time < _time_record) return false;
 
 		Vector3 moveDirection = tacticsHandler.Planning();
-		// CA_Terrain.CA_Grid grid = _map.IsPosAvailable(transform.position, moveDirection);
-		// bool isMove = grid.isWalkable;
-		bool moveFeasibility = (moveDirection != Vector3.zero);
-		BaseUnit.MoveDir dir = new BaseUnit.MoveDir(moveDirection, moveFeasibility);
-		if (!_baseUnit.Move(dir)) {
-			//Debug.Log("No Movement is make");
-			// Notify(EventFlag.AIAgent.MeetInline);
-		} else {
-			_map.UpdateGridInfo(transform.position + moveDirection, _baseUnit);
-		}
+        CA_Terrain.CA_Grid grid = _map.IsPosAvailable(transform.position, moveDirection);
+
+        _baseUnit.ProcessMoveAction(grid, moveDirection, (bool isMove) => {
+            if (!isMove)
+            {
+                // Notify(EventFlag.AIAgent.MeetInline);
+            }
+            else
+            {
+                _map.UpdateGridInfo(transform.position + moveDirection, _baseUnit);
+            }
+        });
 
 		_time_record = Time.time + tacticsHandler.period_to_act;
+
+        return true;
 	}
 	
 }

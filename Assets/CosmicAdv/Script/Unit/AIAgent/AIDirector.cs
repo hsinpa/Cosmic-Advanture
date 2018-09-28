@@ -43,6 +43,8 @@ public class AIDirector : Observer
         if (p_index == -1) p_index = agentlist.IndexOf(p_unit);
 
         if (p_index >= 0 && p_index < agentlist.Count) {
+
+            _map.UpdateGridInfo(Vector3.zero, p_unit.baseUnit);
             PoolManager.instance.Destroy(agentlist[p_index].gameObject);
             agentlist.RemoveAt(p_index);
         }
@@ -86,8 +88,8 @@ public class AIDirector : Observer
 		try {
 			for (int i = agentlist.Count -1; i >= 0; i--) {
 				if (agentlist[i] != null) {
-                    agentlist[i].Execute();
-                    ClearUpInvalidUnit(agentlist[i], i);
+                    bool action_commit = agentlist[i].Execute();
+                    if (action_commit) ClearUpInvalidUnit(agentlist[i], i);
                 }
 			}
 		} catch(System.Exception e) {
@@ -97,8 +99,9 @@ public class AIDirector : Observer
 
     private void ClearUpInvalidUnit(AIAgent p_agent, int p_index) {
         CA_Grid grid = _map.IsPosAvailable(p_agent.transform.position, Vector3.zero);
+
         //If out of grid index, should be eradicate
-        if (grid.position == Vector2.zero && !grid.isWalkable) {
+        if (grid.position == Vector2.zero) {
             RemoveAgent(p_agent, p_index);
         }
     }

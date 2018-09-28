@@ -32,8 +32,10 @@ public class EventFlag {
 
 		public const string EnemyMove = "enemy.move@event";
 		public const string PlayerMove = "player.move@event";
+        public const string UnitAttack = "unit.attack@event";
+        public const string UnitDestroy = "unit.destroy@event";
 
-		public const string GameEnd = "game.end@event";
+        public const string GameEnd = "game.end@event";
 	}
 
 	public class AIAgent {

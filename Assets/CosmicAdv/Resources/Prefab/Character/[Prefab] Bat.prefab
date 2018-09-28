@@ -140,6 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hp: 1
   _defense: 0
+  _attack: 1
   team_label: 1
   controllable: 0
 --- !u!114 &114856156407345196
@@ -153,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac52c1c9f31384e0f8d63369dadd498e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseStat: {fileID: 0}
   jumpForce: 120
   speed: 5
   speedRot: 1000
