@@ -11,7 +11,7 @@ namespace  CA_Terrain
 		//public TerrainBuilder terrainRow;
 		public bool isWalkable {
             get {
-                return (this.mapComponent == null);
+                return (this.mapComponent == null && position != Vector2.zero);
             }
         } 
 

@@ -15,7 +15,6 @@ MonoBehaviour:
   - {fileID: 114989968559582782}
   - {fileID: 114625564681358408}
   - {fileID: 114958213548330108}
-  agentNode: {fileID: 114989968559582782}
 --- !u!114 &114625564681358408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,12 +98,13 @@ MonoBehaviour:
       _connectionType: 0
       _dynamic: 0
   responseTime: 2
-  node: {fileID: 0}
+  positionType: 0
   customPattern:
   - {x: 1, y: 0, z: 0}
   - {x: -1, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
   - {x: 0, y: 0, z: -1}
+  node: {fileID: 0}
   random: 0
 --- !u!114 &114989968559582782
 MonoBehaviour:
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Name: AgentBaseNode
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -296, y: 296}
+  position: {x: -312, y: 216}
   ports:
     keys:
     - strategies

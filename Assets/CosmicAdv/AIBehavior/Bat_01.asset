@@ -15,7 +15,6 @@ MonoBehaviour:
   - {fileID: 114989968559582782}
   - {fileID: 114625564681358408}
   - {fileID: 114958213548330108}
-  agentNode: {fileID: 114989968559582782}
 --- !u!114 &114625564681358408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28,7 +27,7 @@ MonoBehaviour:
   m_Name: Strategy Node
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -536, y: 200}
+  position: {x: -536, y: 264}
   ports:
     keys:
     - tacticsNode
@@ -99,12 +98,12 @@ MonoBehaviour:
       _connectionType: 0
       _dynamic: 0
   responseTime: 1
-  node: {fileID: 0}
+  positionType: 0
   customPattern:
   - {x: 1, y: 0, z: 0}
-  - {x: -1, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
-  - {x: 0, y: 0, z: -1}
+  - {x: 0, y: 0, z: 1}
+  node: {fileID: 0}
   random: 1
 --- !u!114 &114989968559582782
 MonoBehaviour:
@@ -118,7 +117,7 @@ MonoBehaviour:
   m_Name: AgentBaseNode
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000, guid: 57387f92e52624b499970ca08a2b7e6e, type: 2}
-  position: {x: -264, y: 232}
+  position: {x: -280, y: 280}
   ports:
     keys:
     - strategies

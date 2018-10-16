@@ -12,49 +12,13 @@ MonoBehaviour:
   m_Name: Minotaur_01
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: 114789013866007034}
   - {fileID: 114409679357182032}
   - {fileID: 114989968559582782}
   - {fileID: 114625564681358408}
   - {fileID: 114500057753603770}
   - {fileID: 114958213548330108}
-  - {fileID: 114272692541863508}
   - {fileID: 114910328486066798}
-  agentNode: {fileID: 114989968559582782}
---- !u!114 &114272692541863508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39af5bbeb07ce4d8186670428a45cc8a, type: 3}
-  m_Name: Tactics Repeat Node
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -936, y: 328}
-  ports:
-    keys:
-    - node
-    values:
-    - _fieldName: node
-      _node: {fileID: 114272692541863508}
-      _typeQualifiedName: _AIAgent.TacticsNode, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: tacticsNode
-        node: {fileID: 114500057753603770}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _dynamic: 0
-  responseTime: 1
-  node: {fileID: 0}
-  customPattern:
-  - {x: 0, y: 0, z: 1}
-  - {x: 0, y: 0, z: -1}
-  random: 0
+  - {fileID: 114875930999474898}
 --- !u!114 &114409679357182032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,7 +31,7 @@ MonoBehaviour:
   m_Name: Event Node
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -968, y: 8}
+  position: {x: -968, y: -8}
   ports:
     keys:
     - node
@@ -84,7 +48,7 @@ MonoBehaviour:
       _connectionType: 1
       _dynamic: 0
   node: {fileID: 0}
-  description: 
+  description: Encounter Enemy
   event_id: meet_emeny_inline
   TITLE: LINK
   MainValue: strategy.02
@@ -100,7 +64,7 @@ MonoBehaviour:
   m_Name: Strategy Node
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -664, y: 440}
+  position: {x: -648, y: 264}
   ports:
     keys:
     - tacticsNode
@@ -113,7 +77,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: node
-        node: {fileID: 114272692541863508}
+        node: {fileID: 114875930999474898}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
@@ -142,7 +106,7 @@ MonoBehaviour:
       _connectionType: 1
       _dynamic: 0
   id: strategy.02
-  tacticsNode: {fileID: 114272692541863508}
+  tacticsNode: {fileID: 114875930999474898}
   eventNodes:
   - {fileID: 114910328486066798}
   node: {fileID: 0}
@@ -185,9 +149,6 @@ MonoBehaviour:
       - fieldName: node
         node: {fileID: 114409679357182032}
         reroutePoints: []
-      - fieldName: node
-        node: {fileID: 114789013866007034}
-        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _dynamic: 0
@@ -206,9 +167,8 @@ MonoBehaviour:
   tacticsNode: {fileID: 114958213548330108}
   eventNodes:
   - {fileID: 114409679357182032}
-  - {fileID: 114789013866007034}
   node: {fileID: 0}
---- !u!114 &114789013866007034
+--- !u!114 &114875930999474898
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -216,31 +176,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2e4a6a80cc4f4443a73995f47f42a81, type: 3}
-  m_Name: Event Node
+  m_Script: {fileID: 11500000, guid: 57602c27070614edb87b19ccf64a0232, type: 3}
+  m_Name: Tactics Pursue Node
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -968, y: 168}
+  position: {x: -968, y: 200}
   ports:
     keys:
     - node
     values:
     - _fieldName: node
-      _node: {fileID: 114789013866007034}
-      _typeQualifiedName: _AIAgent.EventNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
+      _node: {fileID: 114875930999474898}
+      _typeQualifiedName: _AIAgent.TacticsNode, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       connections:
-      - fieldName: eventNodes
-        node: {fileID: 114625564681358408}
+      - fieldName: tacticsNode
+        node: {fileID: 114500057753603770}
         reroutePoints: []
       _direction: 1
-      _connectionType: 1
+      _connectionType: 0
       _dynamic: 0
+  responseTime: 1
+  positionType: 0
+  customPattern:
+  - {x: 1, y: 0, z: 1}
+  - {x: 1, y: 0, z: -1}
+  - {x: -1, y: 0, z: 1}
+  - {x: -1, y: 0, z: -1}
   node: {fileID: 0}
-  description: 
-  event_id: 
-  TITLE: 
-  MainValue: 
+  patternType: 1
 --- !u!114 &114910328486066798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,7 +217,7 @@ MonoBehaviour:
   m_Name: Event Node
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -936, y: 552}
+  position: {x: -968, y: 392}
   ports:
     keys:
     - node
@@ -270,10 +234,10 @@ MonoBehaviour:
       _connectionType: 1
       _dynamic: 0
   node: {fileID: 0}
-  description: 
-  event_id: 
-  TITLE: 
-  MainValue: 
+  description: Hit something
+  event_id: hit_anything
+  TITLE: LINK
+  MainValue: strategy.02
 --- !u!114 &114958213548330108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,7 +250,7 @@ MonoBehaviour:
   m_Name: Tactics Repeat Node
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -968, y: -216}
+  position: {x: -968, y: -168}
   ports:
     keys:
     - node
@@ -302,12 +266,15 @@ MonoBehaviour:
       _direction: 1
       _connectionType: 0
       _dynamic: 0
-  responseTime: 2
-  node: {fileID: 0}
+  responseTime: 1
+  positionType: 0
   customPattern:
   - {x: 1, y: 0, z: 0}
   - {x: -1, y: 0, z: 0}
-  random: 0
+  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: -1}
+  node: {fileID: 0}
+  random: 1
 --- !u!114 &114989968559582782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,7 +287,7 @@ MonoBehaviour:
   m_Name: AgentBaseNode
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -296, y: 296}
+  position: {x: -264, y: 232}
   ports:
     keys:
     - strategies

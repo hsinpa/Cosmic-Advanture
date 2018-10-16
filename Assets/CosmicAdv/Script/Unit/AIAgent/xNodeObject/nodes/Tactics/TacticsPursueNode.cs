@@ -7,7 +7,11 @@ namespace _AIAgent
 {
     [CreateNodeMenu("Tactics/PursueNode"), NodeTint("#CCFFCC")]
     public class TacticsPursueNode : TacticsNode {
-        public string walkPattern;
+        public enum Pattern {
+            Cardinally, Diagonally, Custom
+        }
+
+        public Pattern patternType = Pattern.Custom;
 
         protected override void Init()
         {

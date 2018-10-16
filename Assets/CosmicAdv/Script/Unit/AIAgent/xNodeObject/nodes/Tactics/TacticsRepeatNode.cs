@@ -7,7 +7,6 @@ namespace _AIAgent
 {
     [CreateNodeMenu("Tactics/RepeatNode"), NodeTint("#CCFFCC")]
     public class TacticsRepeatNode : TacticsNode {	
-        public Vector3[] customPattern;
         public bool random;
 
         protected override void Init()

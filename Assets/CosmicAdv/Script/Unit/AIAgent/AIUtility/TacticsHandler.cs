@@ -8,7 +8,7 @@ namespace _AIAgent
 		private TacticsNode tacticsNode;
 		private AIAgent aIAgent;
 
-		private int period_left_to_act;
+		private float period_left_to_act;
 		public float period_to_act {
 			get {
 				return tacticsNode.responseTime;

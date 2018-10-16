@@ -122,6 +122,7 @@ public class MapGenerator : MonoBehaviour {
 
         if (X < 0 || Y < 0 || Y >= gridMap.Count || X >= gridMap[Y].Length)
             //Return unwalkable if pos not even exist in array
+            
             return new CA_Grid(Vector2.zero);
         else {
             return gridMap[Y][X];
@@ -155,7 +156,6 @@ public class MapGenerator : MonoBehaviour {
         newGrid.mapComponent = p_unit;
 
         return true;
-
     }
 
     public T GetUnitInGrid<T>(Vector3 p_world_position) where T : MapComponent {

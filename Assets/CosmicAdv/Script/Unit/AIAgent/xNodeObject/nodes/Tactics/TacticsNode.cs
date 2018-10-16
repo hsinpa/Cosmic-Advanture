@@ -6,7 +6,14 @@ using XNode;
 namespace _AIAgent
 {
     public abstract class TacticsNode : Node {
-        public int responseTime = 2;
+        public float responseTime = 2;
+        public enum PositionType  {
+            WorldPosition,
+            LocalPosition
+        }
+
+        public PositionType positionType;
+        public Vector3[] customPattern;
         [Output(connectionType = ConnectionType.Multiple)] public TacticsNode node;
 
         protected override void Init()

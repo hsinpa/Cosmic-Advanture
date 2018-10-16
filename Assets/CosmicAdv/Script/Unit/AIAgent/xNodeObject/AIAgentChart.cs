@@ -8,16 +8,26 @@ namespace _AIAgent
 {
     [CreateAssetMenu(fileName = "AgentChart", menuName = "STP/AIAgent", order = 11)]
     public class AIAgentChart : NodeGraph {
-        public AgentBaseNode agentNode;
+        public AgentBaseNode agentNode {
+            get {
 
-        void Awake() {
-            agentNode = AddNode<AgentBaseNode>();
+                if (_agentNode == null)
+                    _agentNode = (AgentBaseNode)nodes.Find((x) => x.GetType() == typeof(AgentBaseNode));
+                    
+                return _agentNode;
+            }
         }
+        private AgentBaseNode _agentNode;
 
-        [ContextMenu("Save")]
-        private void SaveRecord() {
-            Debug.Log(this.name);
-            agentNode = NodeReader.Parse(this);
+        public delegate void SaveChartRecord();
+        public event SaveChartRecord SaveEvent; 
+
+        [ContextMenu("Save Record")]
+        public void SaveRecord() {
+            NodeReader.Parse(this);
+
+            if (SaveEvent != null)
+                SaveEvent();
         }
 
     }
