@@ -23,12 +23,11 @@ namespace  InputWrapper {
 		public override bool IsTap() { return tap;}
 
 		public override bool IsRelease() {
-			#if UNITY_EDITOR || UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN
+#if UNITY_IOS || UNITY_ANDROID
 				return (Input.GetMouseButtonUp(0));
-
-			#elif UNITY_IOS || UNITY_ANDROID
+#else
 				return ((Input.touches[0].phase == TouchPhase.Ended || Input.touches[0].phase == TouchPhase.Canceled));
-			#endif
+#endif
 
 		}
 
